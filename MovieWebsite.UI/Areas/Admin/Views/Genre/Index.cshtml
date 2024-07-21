@@ -1,0 +1,141 @@
+﻿@model IEnumerable<MovieWebsite.Application.Models.VMs.GenreVM.GenreVM>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    /* Add this CSS to your site.css or any other stylesheet you are using */
+    body {
+        background-color: #121212;
+        color: #ffffff;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .container {
+        margin-top: 20px;
+    }
+
+    .card {
+        background-color: #1e1e1e;
+        border: none;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        color: #ffffff;
+    }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+        }
+
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+    }
+
+    .card-text {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .btn {
+        margin-right: 0.5rem;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border: none;
+    }
+
+    .btn-info {
+        background-color: #17a2b8;
+        border: none;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border: none;
+    }
+
+    .alert-warning {
+        background-color: #ffc107;
+        color: #212529;
+    }
+
+    select.form-control {
+        background-color: #1e1e1e;
+        color: #ffffff;
+        border: 1px solid #343a40;
+    }
+
+        select.form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+</style>
+
+
+
+<div class="container">
+    <h1 class="mb-4">@ViewData["Title"]</h1>
+
+    <div class="mb-3">
+        @if (User.IsInRole("Admin"))
+        {
+            <a class="btn btn-primary" asp-action="Create">Create New</a>
+        }
+    </div>
+
+    <form method="get" asp-controller="Genre" asp-action="Index" class="mb-3">
+        <select id="genreSelect" name="genreId" class="form-control" onchange="this.form.submit()">
+            <option value="">Select Genre</option>
+            @foreach (var genre in ViewBag.Genres)
+            {
+                <option value="@genre.Id">@genre.Name</option>
+            }
+        </select>
+    </form>
+
+    @if (ViewBag.Movies != null && ViewBag.Movies.Count > 0)
+    {
+        <div class="row">
+            @foreach (var movie in ViewBag.Movies)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img class="card-img-top" src="@movie.ImagePath" alt="@movie.Title">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">@movie.Title</h5>
+                            <p class="card-text flex-grow-1">@movie.Description</p>
+                            <p class="card-text"><small class="text-muted">Genre: @movie.GenreName</small></p>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a class="btn btn-secondary btn-sm" asp-action="Edit" asp-route-id="@movie.Id">Edit</a>
+                                <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@movie.Id">Details</a>
+                                <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@movie.Id">Delete</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning" role="alert">
+            No films available for the selected genre.
+        </div>
+    }
+</div>
