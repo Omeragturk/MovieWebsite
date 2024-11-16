@@ -26,7 +26,7 @@ namespace MovieWebsite.UI.Areas.Admin.Controllers
         {
             return View(await _filmService.GetAllFilms());
         }
-
+      
         public async Task<IActionResult> Create()
         {
             ViewBag.Genres = new SelectList(await _genreService.GetGenres(), "Id", "Name");
