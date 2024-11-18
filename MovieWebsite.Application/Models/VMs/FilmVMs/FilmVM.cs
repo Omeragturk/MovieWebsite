@@ -14,6 +14,6 @@ namespace MovieWebsite.Application.Models.VMs.FilmVMs
         public string ImagePath { get; set; }
         public string GenreName { get; set; }
         public int GenreId { get; set; }
-
+        
     }
 }

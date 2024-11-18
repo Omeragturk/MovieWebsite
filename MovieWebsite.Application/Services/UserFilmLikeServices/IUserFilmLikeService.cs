@@ -1,5 +1,6 @@
 ﻿using MovieWebsite.Application.Models.DTOs.UserFilmLikeDTos;
 using MovieWebsite.Application.Models.VMs.FilmVMs;
+using MovieWebsite.Application.Models.VMs.UserFilmLikeViewModels;
 using MovieWebsite.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,8 +13,12 @@ namespace MovieWebsite.Application.Services.UserFilmLikeServices
     public interface IUserFilmLikeService
     {
         Task<UserFilmLikeDto> LikeFilmAsync(string userId, int filmId);
-        Task DislikeFilmAsync(string userId, int filmId);
+
+        Task<UserFilmLikeDto> DislikeFilmAsync(string userId, int filmId);
+
+        Task<IEnumerable<UserFilmLikeVM>> GetDissLikedFilmsByUserAsync(string userId);
         Task<bool> HasUserLikedFilmAsync(string userId, int filmId);
-        Task<List<FilmVM>> GetLikedFilmsByUserAsync(string userId);
+        Task<IEnumerable<UserFilmLikeVM>> GetLikedFilmsByUserAsync(string userId);
+
     }
 }

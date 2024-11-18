@@ -1,0 +1,52 @@
+﻿@model IEnumerable<MovieWebsite.Application.Models.VMs.UserFilmLikeViewModels.UserFilmLikeVM>
+
+@{
+    ViewData["Title"] = "LikedFilms";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h2>Beğendiğiniz Filmler</h2>
+
+@if (!Model.Any())
+{
+    <p>Henüz hiçbir filmi beğenmediniz.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Film Adı</th>
+                <th>Açıklama</th>
+                <th>Resim</th>
+                
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var film in Model)
+            {
+                <tr>
+                    <td>@film.Films.FirstOrDefault()?.Title</td>
+                    <td>@film.Films.FirstOrDefault()?.Description</td>
+                    <td>
+                        <img src="@film.Films.FirstOrDefault()?.ImagePath" alt="@film.Films.FirstOrDefault()?.Title" style="width: 100px; height: auto;" />
+                    </td>
+                    
+                    <td>
+                        <form asp-action="Dislike" asp-controller="UserFilmLike" asp-area="Admin" method="post">
+                            <input type="hidden" name="filmId" value="@film.FilmId" />
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-thumbs-down"></i> Beğenmekten Vazgeç
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+

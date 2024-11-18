@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using MovieWebsite.Application.Models.DTOs.UserFilmLikeDTos;
 using MovieWebsite.Application.Models.VMs.FilmVMs;
+using MovieWebsite.Application.Models.VMs.UserFilmLikeViewModels;
 using MovieWebsite.Domain.Entities;
 using MovieWebsite.Domain.Enums;
 using MovieWebsite.Domain.Interfaces;
@@ -32,22 +33,75 @@ namespace MovieWebsite.Application.Services.UserFilmLikeServices
             _mapper = mapper;
         }
 
-        public async Task DislikeFilmAsync(string userId, int filmId)
+        public async Task<UserFilmLikeDto> DislikeFilmAsync(string userId, int filmId)
         {
-            
-            var userFilmLike = await _userFilmLikeRepository.GetDefault(uf => uf.UserId == userId && uf.FilmId == filmId);
-            if (userFilmLike != null)
+            var existingLike = await _userFilmLikeRepository.GetDefault(uf => uf.UserId == userId && uf.FilmId == filmId);
+            if (existingLike != null)
             {
-                
-                await _userFilmLikeRepository.Delete(userFilmLike);
+
+                return _mapper.Map<UserFilmLikeDto>(existingLike);
             }
+
+            var user = await _userRepository.GetDefault(u => u.Id == userId);
+            var film = await _filmRepository.GetDefault(f => f.Id == filmId);
+
+            if (user == null || film == null)
+            {
+                // User or film not found, return null
+                return null;
+            }
+            var userFilmLike = new UserFilmLike
+            {
+                UserId = userId,
+                FilmId = filmId,
+                User = user,
+                Film = film,
+                Disliked = true,
+                CreateDate = DateTime.Now
+                
+            };
+            await _userFilmLikeRepository.Create(userFilmLike);
+            return _mapper.Map<UserFilmLikeDto>(userFilmLike);
         }
 
-        public async Task<List<FilmVM>> GetLikedFilmsByUserAsync(string userId)
+        public async Task<IEnumerable<UserFilmLikeVM>> GetDissLikedFilmsByUserAsync(string userId)
         {
-           var likedFilms = await _userFilmLikeRepository.GetLikedFilmsByUserId(userId);
-            return _mapper.Map<List<FilmVM>>(likedFilms);
+            var userFilmLikes = await _context.UserFilmLikes
+                .Include(uf => uf.Film) // Films ilişkisini yükleyin
+                .Where(uf => uf.UserId == userId && uf.Disliked)
+                .ToListAsync();
+
+            return userFilmLikes.Select(uf => new UserFilmLikeVM
+            {
+                FilmId = uf.FilmId,
+                Films = new List<FilmVM>
+                {
+                    _mapper.Map<FilmVM>(uf.Film)
+                }
+
+            });
+
+
         }
+
+        public async Task<IEnumerable<UserFilmLikeVM>> GetLikedFilmsByUserAsync(string userId)
+        {
+            var userFilmLikes = await _context.UserFilmLikes
+                .Include(uf => uf.Film) // Films ilişkisini yükleyin
+                .Where(uf => uf.UserId == userId)
+                .ToListAsync();
+
+            return userFilmLikes.Select(uf => new UserFilmLikeVM
+            {
+                FilmId = uf.FilmId,
+                Films = new List<FilmVM>
+                {
+                    _mapper.Map<FilmVM>(uf.Film)
+                }
+
+            });
+        }
+
 
         public async Task<bool> HasUserLikedFilmAsync(string userId, int filmId)
         {

@@ -1,97 +1,116 @@
 ﻿@model MovieWebsite.Application.Models.VMs.FilmVMs.FilmVM
-
 @{
     ViewData["Title"] = "GetFilmDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <style>
-    // Colors
-    $color-primary-white: rgb(240, 240, 240);
-
-    main {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 50px;
-        font-family: 'Roboto', sans-serif;
-    }
-
     .card {
         width: 24rem;
-        height: 36rem;
+        height: auto;
         border-radius: 10px;
         overflow: hidden;
         cursor: pointer;
         position: relative;
-        color: $color-primary-white;
+        color: rgb(240, 240, 240);
         box-shadow: 0 10px 30px 5px rgba(0, 0, 0, 0.2);
-               
-        img
-
-    {
-        position: absolute;
-        object-fit: cover;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        opacity: 0.9;
-        transition: opacity .2s ease-out;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #333;
     }
 
-    h2 {
-        position: absolute;
-        inset: auto auto 30px 30px;
-        margin: 0;
-        transition: inset .3s .3s ease-out;
-        font-family: 'Roboto Condensed', sans-serif;
-        font-weight: normal;
-        text-transform: uppercase;
-        color: gray
+        .card img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+    .card-content {
+        padding: 20px;
+        text-align: center;
     }
 
-    p, a {
-        position: absolute;
-        opacity: 0;
-        max-width: 80%;
-        transition: opacity .3s ease-out;
+        .card-content h2 {
+            margin-bottom: 10px;
+            font-family: 'Roboto Condensed', sans-serif;
+            font-weight: normal;
+            text-transform: uppercase;
+            color: gray;
+        }
+
+        .card-content p {
+            margin-bottom: 20px;
+            color: white;
+        }
+
+    /* General button styles */
+    .buttons form button {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 10px 15px;
+        font-size: 14px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .buttons form button i {
+            margin-right: 5px;
+        }
+
+    /* Like button (Green) */
+    .buttons .btn-success {
+        background-color: #4CAF50; /* Green color */
         color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    p {
-        inset: auto auto 80px 30px;
+        .buttons .btn-success:hover {
+            background-color: #45a049; /* Darker green on hover */
+            transform: translateY(-2px); /* Slight hover lift effect */
+        }
+
+    /* Dislike button (Red) */
+    .buttons .btn-danger {
+        background-color: #f44336; /* Red color */
+        color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    a {
-        inset: auto auto 40px 30px;
-        color: inherit;
+        .buttons .btn-danger:hover {
+            background-color: #e53935; /* Darker red on hover */
+            transform: translateY(-2px); /* Slight hover lift effect */
+        }
+
+    /* Optionally, a different color for the 'Back to List' button */
+    .card-content .button {
         text-decoration: none;
-        border: 1px solid white;
         color: white;
+        background-color: #007bff; /* Blue color */
+        padding: 10px 20px;
+        border-radius: 5px;
+        margin-top: 10px;
+        display: inline-block;
+        transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
-    &:hover h2 {
-        inset: auto auto 220px 30px;
-        transition: inset .3s ease-out;
+        .card-content .button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+            transform: translateY(-2px); /* Slight hover lift effect */
+        }
+
+    /* If the film is liked */
+    .liked .btn-success {
+        background-color: #388e3c !important; /* Darker Green for liked */
     }
 
-    &:hover p, &:hover a {
-        opacity: 1;
-        transition: opacity .5s .1s ease-in;
+    /* If the film is disliked */
+    .disliked .btn-danger {
+        background-color: #c62828 !important; /* Darker Red for disliked */
     }
-
-    &:hover img {
-        transition: opacity .3s ease-in;
-        opacity: 1;
-    }
-
-    }
-
-    .material-symbols-outlined {
-        vertical-align: middle;
-    }
-
 </style>
 
 <main>
@@ -104,11 +123,66 @@
             <p>
                 @Html.DisplayFor(model => model.Description)
             </p>
+
+            <div id="successMessage" class="toast-container" style="display: none;">
+                <div class="toast">
+                    <span class="toast-icon">&#x2714;</span> <!-- Tick Icon -->
+                    <span id="toastMessage">Film başarıyla beğenildi.</span>
+                    <button id="closeToast" class="btn-close">&#x2716;</button> <!-- Close Icon -->
+                </div>
+            </div>
+
+            <!-- Like and Dislike Forms -->
+            <div class="buttons">
+                <!-- Check if the movie is liked -->
+                @if (Model.IsLiked)
+                {
+                    <div class="liked">
+                        <form id="likeForm" asp-area="Admin" asp-controller="UserFilmLike" asp-action="Like" method="post" data-id="@Model.Id">
+                            <input type="hidden" name="filmId" value="@Model.Id" />
+                            <button type="submit" class="btn btn-success" disabled>
+                                <i class="fas fa-thumbs-up"></i> Beğendim
+                            </button>
+                        </form>
+                    </div>
+                }
+                else
+                {
+                    <form id="likeForm" asp-area="Admin" asp-controller="UserFilmLike" asp-action="Like" method="post" data-id="@Model.Id">
+                        <input type="hidden" name="filmId" value="@Model.Id" />
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-thumbs-up"></i> Beğendim
+                        </button>
+                    </form>
+                }
+
+                <!-- Check if the movie is disliked -->
+                @if (Model.IsDisliked)
+                {
+                    <div class="disliked">
+                        <form id="dislikeForm" asp-area="Admin" asp-controller="UserFilmLike" asp-action="Dislike" method="post" data-id="@Model.Id">
+                            <input type="hidden" name="filmId" value="@Model.Id" />
+                            <button type="submit" class="btn btn-danger" disabled>
+                                <i class="fas fa-thumbs-down"></i> Beğenmedim
+                            </button>
+                        </form>
+                    </div>
+                }
+                else
+                {
+                    <form id="dislikeForm" asp-area="Admin" asp-controller="UserFilmLike" asp-action="Dislike" method="post" data-id="@Model.Id">
+                        <input type="hidden" name="filmId" value="@Model.Id" />
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-thumbs-down"></i> Beğenmedim
+                        </button>
+                    </form>
+                }
+            </div>
+
+            <!-- Message container for success or error messages -->
             <a asp-action="Index" class="button">
                 Back to List
-                <span class="material-symbols-outlined">
-                    
-                </span>
+                <span class="material-symbols-outlined"></span>
             </a>
         </div>
     </div>

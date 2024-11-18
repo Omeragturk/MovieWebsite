@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using MovieWebsite.Application.Ioc;
 using MovieWebsite.Application.Services.FilmServices;
 using MovieWebsite.Application.Services.GenreServices;
+using MovieWebsite.Application.Services.UserFilmLikeServices;
 using MovieWebsite.Application.Services.UserServices;
 using MovieWebsite.Domain.Entities;
 using MovieWebsite.Infrastructure.Context;
@@ -49,6 +50,7 @@ namespace MovieWebsite.UI
             builder.Services.AddScoped<IFilmService, FilmService>();
             builder.Services.AddScoped<IGenreService, GenreService>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IUserFilmLikeService, UserFilmLikeService>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

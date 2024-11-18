@@ -20,16 +20,8 @@ namespace MovieWebsite.Application.Ioc
             builder.RegisterType<UserRepo>().As<IUserRepository>().InstancePerLifetimeScope();
             builder.RegisterType<FilmRepo>().As<IFilmRepository>().InstancePerLifetimeScope();
             builder.RegisterType<GenreRepo>().As<IGenreRepository>().InstancePerLifetimeScope();
-            //builder.RegisterType<ProductRepo>().As<IProductRepo>().InstancePerLifetimeScope();
-            //builder.RegisterType<CategoryRepo>().As<ICategoryRepo>().InstancePerLifetimeScope();
-            //builder.RegisterType<OrderDetailRepo>().As<IOrderDetailRepo>().InstancePerLifetimeScope();
-            //builder.RegisterType<OrderRepo>().As<IOrderRepo>().InstancePerLifetimeScope();
+            builder.RegisterType<UserFilmLikeRepo>().As<IUserFilmLikeRepo>().InstancePerLifetimeScope();    
 
-            //builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
-            //builder.RegisterType<CartService>().As<ICartService>().InstancePerLifetimeScope();
-            //builder.RegisterType<ProductService>().As<IProductService>().InstancePerLifetimeScope();
-            //builder.RegisterType<CategoryService>().As<ICategoryService>().InstancePerLifetimeScope();
-            
 
             builder.Register(context => new MapperConfiguration(config =>
             {

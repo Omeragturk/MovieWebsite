@@ -14,7 +14,7 @@ namespace MovieWebsite.Application.Models.VMs.UserFilmLikeViewModels
         public string UserId { get; set; }
         public int FilmId { get; set; }
         public bool Disliked { get; set; }
-        public List<FilmVM> Films { get; set; }
+        public List<FilmVM>? Films { get; set; }
        
     }
 }
