@@ -18,6 +18,7 @@ namespace MovieWebsite.Domain.Entities
         
         public  User User { get; set; }
         public bool Disliked { get; set; }
+        public bool Liked { get; set; }
         public int FilmId { get; set; }
         public Film Film { get; set; }
         public DateTime CreateDate { get; set; }

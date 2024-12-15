@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 namespace MovieWebsite.Application.Models.VMs.FilmVMs
 {
     public class FilmDetailVM
-    {
-
-        
+    {       
         public string Title { get; set; }
         public string Description { get; set; }
         public string ImagePath { get; set; }

@@ -215,7 +215,7 @@ namespace MovieWebsite.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDate = new DateTime(2024, 7, 15, 11, 42, 33, 801, DateTimeKind.Local).AddTicks(6887),
+                            CreateDate = new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5348),
                             Description = "The leader of a drug cartel busts out of a courthouse and speeds to the Mexican border, where the only thing in his path is a sheriff and his inexperienced staff.",
                             GenreId = 1,
                             ImagePath = "/moviehunter/css/images/movie1.jpg",
@@ -225,7 +225,7 @@ namespace MovieWebsite.Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            CreateDate = new DateTime(2024, 7, 15, 11, 42, 33, 801, DateTimeKind.Local).AddTicks(6890),
+                            CreateDate = new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5350),
                             Description = " Peter Parker is beset with troubles in his failing personal life as he battles a brilliant scientist named Doctor Otto Octavius.",
                             GenreId = 1,
                             ImagePath = "/moviehunter/css/images/movie2.jpg",
@@ -235,7 +235,7 @@ namespace MovieWebsite.Infrastructure.Migrations
                         new
                         {
                             Id = 3,
-                            CreateDate = new DateTime(2024, 7, 15, 11, 42, 33, 801, DateTimeKind.Local).AddTicks(6891),
+                            CreateDate = new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5352),
                             Description = "A strange black entity from another world bonds with Peter Parker and causes inner turmoil as he contends with new villains, temptations, and revenge.",
                             GenreId = 1,
                             ImagePath = "/moviehunter/css/images/movie3.jpg",
@@ -245,7 +245,7 @@ namespace MovieWebsite.Infrastructure.Migrations
                         new
                         {
                             Id = 4,
-                            CreateDate = new DateTime(2024, 7, 15, 11, 42, 33, 801, DateTimeKind.Local).AddTicks(6893),
+                            CreateDate = new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5353),
                             Description = "A dramatization of the July 20, 1944 assassination and political coup plot by desperate renegade German Army officers",
                             GenreId = 3,
                             ImagePath = "/moviehunter/css/images/movie4.jpg",
@@ -255,7 +255,7 @@ namespace MovieWebsite.Infrastructure.Migrations
                         new
                         {
                             Id = 5,
-                            CreateDate = new DateTime(2024, 7, 15, 11, 42, 33, 801, DateTimeKind.Local).AddTicks(6895),
+                            CreateDate = new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5355),
                             Description = " A former Roman General sets out to exact vengeance against the corrupt emperor who murdered his family and sent him",
                             GenreId = 3,
                             ImagePath = "/moviehunter/css/images/movie5.jpg",
@@ -265,7 +265,7 @@ namespace MovieWebsite.Infrastructure.Migrations
                         new
                         {
                             Id = 6,
-                            CreateDate = new DateTime(2024, 7, 15, 11, 42, 33, 801, DateTimeKind.Local).AddTicks(6896),
+                            CreateDate = new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5356),
                             Description = " Set during the Ice Age, a sabertooth tiger, a sloth, and a wooly mammoth find a lost human infant, and they try to return him to his tribe.",
                             GenreId = 2,
                             ImagePath = "/moviehunter/css/images/movie6.jpg",
@@ -275,7 +275,7 @@ namespace MovieWebsite.Infrastructure.Migrations
                         new
                         {
                             Id = 7,
-                            CreateDate = new DateTime(2024, 7, 15, 11, 42, 33, 801, DateTimeKind.Local).AddTicks(6898),
+                            CreateDate = new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5358),
                             Description = "An ancient struggle between two Cyber",
                             GenreId = 6,
                             ImagePath = "/moviehunter/css/images/movie7.jpg",
@@ -285,7 +285,7 @@ namespace MovieWebsite.Infrastructure.Migrations
                         new
                         {
                             Id = 8,
-                            CreateDate = new DateTime(2024, 7, 15, 11, 42, 33, 801, DateTimeKind.Local).AddTicks(6899),
+                            CreateDate = new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5360),
                             Description = " In 1962, the United States government enlists the help of Mutants with superhuman abilities to stop a malicious dictator who is determined to start World War III.",
                             GenreId = 6,
                             ImagePath = "/moviehunter/css/images/movie8.jpg",
@@ -295,7 +295,7 @@ namespace MovieWebsite.Infrastructure.Migrations
                         new
                         {
                             Id = 9,
-                            CreateDate = new DateTime(2024, 7, 15, 11, 42, 33, 801, DateTimeKind.Local).AddTicks(6901),
+                            CreateDate = new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5361),
                             Description = " The Dragon Warrior has to clash against the savage Tai Lung as China's fate hangs in the balance: However, the Dragon Warrior mantle is supposedly mistaken to be bestowed upon an obese panda who is a tyro in martial arts.",
                             GenreId = 2,
                             ImagePath = "/moviehunter/css/images/movie9.jpg",
@@ -305,7 +305,7 @@ namespace MovieWebsite.Infrastructure.Migrations
                         new
                         {
                             Id = 10,
-                            CreateDate = new DateTime(2024, 7, 15, 11, 42, 33, 801, DateTimeKind.Local).AddTicks(6903),
+                            CreateDate = new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5363),
                             Description = " Jerry and Rachel are two strangers thrown together by a mysterious phone call from a woman they have never met. Threatening their lives and family, she pushes Jerry and Rachel into a series of increasingly dangerous situations, using the technology of everyday life to track and control their every move.",
                             GenreId = 1,
                             ImagePath = "/moviehunter/css/images/movie10.jpg",
@@ -315,7 +315,7 @@ namespace MovieWebsite.Infrastructure.Migrations
                         new
                         {
                             Id = 11,
-                            CreateDate = new DateTime(2024, 7, 15, 11, 42, 33, 801, DateTimeKind.Local).AddTicks(6904),
+                            CreateDate = new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5364),
                             Description = "Harvard symbologist Robert Langdon works with a nuclear physicist to solve a murder and prevent a terrorist act against the Vatican during one of the significant events within the church.",
                             GenreId = 2,
                             ImagePath = "/moviehunter/css/images/movie12.jpg",
@@ -325,7 +325,7 @@ namespace MovieWebsite.Infrastructure.Migrations
                         new
                         {
                             Id = 12,
-                            CreateDate = new DateTime(2024, 7, 15, 11, 42, 33, 801, DateTimeKind.Local).AddTicks(6907),
+                            CreateDate = new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5366),
                             Description = "In rural Alabama, two couples find themselves in a fight for survival. Running from a maniac (The Tin Man) bent on killing them, they flee deep into the woods and seek refuge in a house.",
                             GenreId = 3,
                             ImagePath = "/moviehunter/css/images/movie13.jpg",
@@ -524,6 +524,9 @@ namespace MovieWebsite.Infrastructure.Migrations
 
                     b.Property<int>("FilmId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("Liked")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");

@@ -5,3 +5,127 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h2>DisLikedFilms</h2>
+
+
+<style>
+    /* Ana Konteyner Stili */
+    .disliked-films-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+
+    /* Kart Stili */
+    .film-card {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .film-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Film Görseli */
+    .film-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    /* Kart İçeriği */
+    .film-card-content {
+        padding: 15px;
+        text-align: center;
+    }
+
+    .film-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #343a40;
+    }
+
+    .film-description {
+        font-size: 14px;
+        color: #6c757d;
+        margin-bottom: 15px;
+    }
+
+    /* Butonlar */
+    .btn {
+        font-size: 14px;
+        padding: 8px 12px;
+        margin: 5px;
+        border-radius: 4px;
+        text-transform: uppercase;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-remove {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+    }
+
+    .btn-remove:hover {
+        background-color: #c82333;
+    }
+
+    .btn-details {
+        background-color: #007bff;
+        color: white;
+        border: none;
+    }
+
+    .btn-details:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<h2 class="text-center mb-4">DisLiked Films</h2>
+
+<div class="disliked-films-container">
+    @if (!Model.Any())
+    {
+        <div class="text-center">
+            <h3>No disliked films found.</h3>
+            <p>You haven't disliked any films yet.</p>
+        </div>
+    }
+    else
+    {
+        @foreach (var item in Model)
+        {
+            var film = item.Films?.FirstOrDefault(f => f.Id == item.FilmId); 
+            if (film != null)
+            {
+                <div class="film-card">
+                    <img src="@film.ImagePath" alt="@film.Title" />
+                    <div class="film-card-content">
+                        <h3 class="film-title">@film.Title</h3>
+                        <p class="film-description">@film.Description</p>
+                        <form asp-area="Admin" asp-controller="UserFilmLike" asp-action="RemoveDislike" method="post">
+                            <input type="hidden" name="filmId" value="@film.Id" />
+                            <input type="hidden" name="userId" value="@item.UserId" />
+                            <button type="submit" class="btn btn-remove">Remove Dislike</button>
+                        </form>
+                        <a asp-area="Public" asp-controller="Film" asp-action="Details" asp-route-id="@film.Id" class="btn btn-details">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+            }
+        }
+    }
+</div>
+

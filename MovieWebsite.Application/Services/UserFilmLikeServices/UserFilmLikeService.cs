@@ -57,6 +57,7 @@ namespace MovieWebsite.Application.Services.UserFilmLikeServices
                 User = user,
                 Film = film,
                 Disliked = true,
+                Liked = false,
                 CreateDate = DateTime.Now
                 
             };
@@ -136,7 +137,10 @@ namespace MovieWebsite.Application.Services.UserFilmLikeServices
                 FilmId = filmId,
                 User = user,
                 Film = film,
+                Disliked = false,
+                Liked = true,
                 CreateDate = DateTime.Now
+                
             };
 
             
@@ -144,6 +148,48 @@ namespace MovieWebsite.Application.Services.UserFilmLikeServices
 
             
             return _mapper.Map<UserFilmLikeDto>(userFilmLike);
+        }
+
+        public async Task<UserFilmLikeVM> RemoveDislikeAsync(string userId, int filmId)
+        {
+            var existingLike =await _userFilmLikeRepository.GetDefault(uf => uf.UserId == userId && uf.FilmId == filmId);
+            if (existingLike == null)
+            {
+                return null;
+            }
+
+            if (!existingLike.Disliked)
+            {
+                return null;
+            }
+
+            await _userFilmLikeRepository.Delete(existingLike);
+            return _mapper.Map<UserFilmLikeVM>(existingLike);
+
+
+
+
+
+
+        }
+
+        public async Task<UserFilmLikeVM> RemoveLikeAsync(string userId, int filmId)
+        {
+            var existingLike = await _userFilmLikeRepository.GetDefault(uf => uf.UserId == userId && uf.FilmId == filmId);
+            if (existingLike == null)
+            {
+                return null;
+            }
+
+            if (existingLike.Liked)
+            {
+                return null;
+            }
+
+            await _userFilmLikeRepository.Delete(existingLike);
+            return _mapper.Map<UserFilmLikeVM>(existingLike);
+
+
         }
     }
 }

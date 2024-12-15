@@ -19,6 +19,11 @@ namespace MovieWebsite.Application.Services.UserFilmLikeServices
         Task<IEnumerable<UserFilmLikeVM>> GetDissLikedFilmsByUserAsync(string userId);
         Task<bool> HasUserLikedFilmAsync(string userId, int filmId);
         Task<IEnumerable<UserFilmLikeVM>> GetLikedFilmsByUserAsync(string userId);
+        
+        Task<UserFilmLikeVM> RemoveLikeAsync(string userId, int filmId);
+        
+        Task<UserFilmLikeVM> RemoveDislikeAsync(string userId, int filmId);
+
 
     }
 }

@@ -19,53 +19,66 @@ namespace MovieWebsite.UI.Areas.Admin.Controllers
         }
 
 
+[HttpPost]
+public async Task<IActionResult> Like(int filmId)
+{
+    if (User?.Identity?.IsAuthenticated != true)
+    {
+        TempData["Error"] = "Film beğenmek için giriş yapmalısınız.";
+        return RedirectToAction("Login", "Account");
+    }
 
-        [HttpPost]
-        public async Task<IActionResult> Like(int filmId)
-        {
-            if (User?.Identity?.IsAuthenticated != true)
-            {
-                TempData["Error"] = "Film beğenmek için giriş yapmalısınız.";
-                return RedirectToAction("Login", "Account");
-            }
+    var userId = _userManager.GetUserId(User);
 
-            var userId = _userManager.GetUserId(User);
+    // Eğer kullanıcı filmi zaten beğenmişse hata döndür
+    var likeCheck = await _userFilmLikeService.LikeFilmAsync(userId, filmId);
+    if (likeCheck != null && likeCheck.Disliked)
+    {
+        TempData["Error"] = "Bu filmi zaten beğendiniz.";
+        return RedirectToAction("LikedFilms", "UserFilmLike");
+    }
 
-            var result = await _userFilmLikeService.LikeFilmAsync(userId, filmId);
-            if (result == null)
-            {
-                TempData["Error"] = "Film beğenilemedi. Film veya kullanıcı bulunamadı.";
-            }
-            else
-            {
-                TempData["Success"] = "Film başarıyla beğenildi.";
-            }
+    // Eğer kullanıcı dislike yapmışsa onu kaldır
+    if (likeCheck != null && likeCheck.Disliked)
+    {
+        await _userFilmLikeService.RemoveDislikeAsync(userId, filmId);
+    }
 
-            // Yönlendirme işlemini, Admin/UserFilmLikeController/LikedFilms olarak yapıyoruz
-            return RedirectToAction("LikedFilms", "UserFilmLike");
+    await _userFilmLikeService.LikeFilmAsync(userId, filmId);
+    TempData["Success"] = "Film başarıyla beğenildi.";
+    return RedirectToAction("LikedFilms", "UserFilmLike");
+}
 
-        }
+[HttpPost]
+public async Task<IActionResult> Dislike(int filmId)
+{
+    if (User?.Identity?.IsAuthenticated != true)
+    {
+        TempData["Error"] = "Film beğenmekten vazgeçmek için giriş yapmalısınız.";
+        return RedirectToAction("Login", "Account");
+    }
 
+    var userId = _userManager.GetUserId(User);
 
+    // Eğer kullanıcı filmi zaten beğenmemişse hata döndür
+    var dislikeCheck = await _userFilmLikeService.LikeFilmAsync(userId, filmId);
+    if (dislikeCheck != null && dislikeCheck.Disliked)
+    {
+        TempData["Error"] = "Bu filmi zaten beğenmediniz.";
+        return RedirectToAction("DisLikedFilms", "UserFilmLike");
+    }
 
+    // Eğer kullanıcı like yapmışsa onu kaldır
+    if (dislikeCheck != null && dislikeCheck.Disliked)
+    {
+        await _userFilmLikeService.RemoveLikeAsync(userId, filmId);
+    }
 
-        [HttpPost]
-        public async Task<IActionResult> Dislike(int filmId)
-        {
-            if (User?.Identity?.IsAuthenticated != true)
-            {
-                TempData["Error"] = "Film beğenmekten vazgeçmek için giriş yapmalısınız.";
-                return RedirectToAction("Login", "Account");
-            }
+    await _userFilmLikeService.DislikeFilmAsync(userId, filmId);
+    TempData["Success"] = "Film başarıyla beğenilmedi.";
+    return RedirectToAction("DisLikedFilms", "UserFilmLike");
+}
 
-            var userId = _userManager.GetUserId(User);
-
-            await _userFilmLikeService.DislikeFilmAsync(userId, filmId);
-            TempData["Success"] = "Film beğenmekten vazgeçildi.";
-
-            
-            return RedirectToAction("DisLikedFilms", "UserFilmLike");
-        }
 
 
 

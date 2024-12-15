@@ -44,73 +44,7 @@
             color: white;
         }
 
-    /* General button styles */
-    .buttons form button {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        padding: 10px 15px;
-        font-size: 14px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-        .buttons form button i {
-            margin-right: 5px;
-        }
-
-    /* Like button (Green) */
-    .buttons .btn-success {
-        background-color: #4CAF50; /* Green color */
-        color: white;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-        .buttons .btn-success:hover {
-            background-color: #45a049; /* Darker green on hover */
-            transform: translateY(-2px); /* Slight hover lift effect */
-        }
-
-    /* Dislike button (Red) */
-    .buttons .btn-danger {
-        background-color: #f44336; /* Red color */
-        color: white;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-        .buttons .btn-danger:hover {
-            background-color: #e53935; /* Darker red on hover */
-            transform: translateY(-2px); /* Slight hover lift effect */
-        }
-
-    /* Optionally, a different color for the 'Back to List' button */
-    .card-content .button {
-        text-decoration: none;
-        color: white;
-        background-color: #007bff; /* Blue color */
-        padding: 10px 20px;
-        border-radius: 5px;
-        margin-top: 10px;
-        display: inline-block;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-    }
-
-        .card-content .button:hover {
-            background-color: #0056b3; /* Darker blue on hover */
-            transform: translateY(-2px); /* Slight hover lift effect */
-        }
-
-    /* If the film is liked */
-    .liked .btn-success {
-        background-color: #388e3c !important; /* Darker Green for liked */
-    }
-
-    /* If the film is disliked */
-    .disliked .btn-danger {
-        background-color: #c62828 !important; /* Darker Red for disliked */
-    }
+    
 </style>
 
 <main>
@@ -124,62 +58,12 @@
                 @Html.DisplayFor(model => model.Description)
             </p>
 
-            <div id="successMessage" class="toast-container" style="display: none;">
-                <div class="toast">
-                    <span class="toast-icon">&#x2714;</span> <!-- Tick Icon -->
-                    <span id="toastMessage">Film başarıyla beğenildi.</span>
-                    <button id="closeToast" class="btn-close">&#x2716;</button> <!-- Close Icon -->
-                </div>
-            </div>
+            <partial name="UserFilmLikeButtons" model="new UserFilmLikeVM
+            {
+                FilmId = Model.Id,
+                Disliked = false
+            }" />
 
-            <!-- Like and Dislike Forms -->
-            <div class="buttons">
-                <!-- Check if the movie is liked -->
-                @if (Model.IsLiked)
-                {
-                    <div class="liked">
-                        <form id="likeForm" asp-area="Admin" asp-controller="UserFilmLike" asp-action="Like" method="post" data-id="@Model.Id">
-                            <input type="hidden" name="filmId" value="@Model.Id" />
-                            <button type="submit" class="btn btn-success" disabled>
-                                <i class="fas fa-thumbs-up"></i> Beğendim
-                            </button>
-                        </form>
-                    </div>
-                }
-                else
-                {
-                    <form id="likeForm" asp-area="Admin" asp-controller="UserFilmLike" asp-action="Like" method="post" data-id="@Model.Id">
-                        <input type="hidden" name="filmId" value="@Model.Id" />
-                        <button type="submit" class="btn btn-success">
-                            <i class="fas fa-thumbs-up"></i> Beğendim
-                        </button>
-                    </form>
-                }
-
-                <!-- Check if the movie is disliked -->
-                @if (Model.IsDisliked)
-                {
-                    <div class="disliked">
-                        <form id="dislikeForm" asp-area="Admin" asp-controller="UserFilmLike" asp-action="Dislike" method="post" data-id="@Model.Id">
-                            <input type="hidden" name="filmId" value="@Model.Id" />
-                            <button type="submit" class="btn btn-danger" disabled>
-                                <i class="fas fa-thumbs-down"></i> Beğenmedim
-                            </button>
-                        </form>
-                    </div>
-                }
-                else
-                {
-                    <form id="dislikeForm" asp-area="Admin" asp-controller="UserFilmLike" asp-action="Dislike" method="post" data-id="@Model.Id">
-                        <input type="hidden" name="filmId" value="@Model.Id" />
-                        <button type="submit" class="btn btn-danger">
-                            <i class="fas fa-thumbs-down"></i> Beğenmedim
-                        </button>
-                    </form>
-                }
-            </div>
-
-            <!-- Message container for success or error messages -->
             <a asp-action="Index" class="button">
                 Back to List
                 <span class="material-symbols-outlined"></span>

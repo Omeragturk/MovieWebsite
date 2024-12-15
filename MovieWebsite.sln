@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieWebsite.Domain", "MovieWebsite.Domain\MovieWebsite.Domain.csproj", "{F8735BB1-F700-43D4-A42D-7616FED13D98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieWebsite.Domain", "MovieWebsite.Domain\MovieWebsite.Domain.csproj", "{F8735BB1-F700-43D4-A42D-7616FED13D98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieWebsite.Infrastructure", "MovieWebsite.Infrastructure\MovieWebsite.Infrastructure.csproj", "{20AA6978-3021-4E17-AD7E-73BEB66ABED0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieWebsite.Infrastructure", "MovieWebsite.Infrastructure\MovieWebsite.Infrastructure.csproj", "{20AA6978-3021-4E17-AD7E-73BEB66ABED0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieWebsite.Application", "MovieWebsite.Application\MovieWebsite.Application.csproj", "{2C27AD05-6C8B-4C21-A4E2-C55ACDB84EFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieWebsite.Application", "MovieWebsite.Application\MovieWebsite.Application.csproj", "{2C27AD05-6C8B-4C21-A4E2-C55ACDB84EFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieWebsite.UI", "MovieWebsite.UI\MovieWebsite.UI.csproj", "{B5765FBD-74EF-4182-954A-DD2AF8A4F96B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieWebsite.UI", "MovieWebsite.UI\MovieWebsite.UI.csproj", "{B5765FBD-74EF-4182-954A-DD2AF8A4F96B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
