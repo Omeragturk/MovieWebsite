@@ -1,79 +1,92 @@
 ﻿@model IEnumerable<MovieWebsite.Application.Models.VMs.FilmVMs.FilmVM>
 
-
 <link rel="stylesheet" href="~/moviehunter/css/style.css" type="text/css" media="all" />
 <script type="text/javascript" src="~/moviehunter/js/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="/moviehunter/js/jquery-func.js"></script>
-<link rel="stylesheet" href="~/moviehunter/css/ie6.css" type="text/css" media="all" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" crossorigin="anonymous" />
 <script src="https://kit.fontawesome.com/8e1b0b6f3d.js" crossorigin="anonymous"></script>
-<style>
-   
 
-    .card {
-        margin-bottom: 20px;
+<style>
+    .movie {
+        position: relative;
+        width: 200px;
+        height: 300px;
+        margin: 20px auto;
+        overflow: hidden;
         border: 1px solid #ccc;
         border-radius: 5px;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-        padding: 0;
-        cursor: pointer;
-        overflow: hidden;
-        position: relative;
-        width: 200px; /* Kart boyutunu ayarlayın */
-        height: 300px; /* Kart boyutunu ayarlayın */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
     }
 
-        .card img {
+        .movie:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+    .movie-image {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+        .movie-image img {
             width: 100%;
-            height: 100%; /* Resim boyutunu ayarlayın */
+            height: 100%;
             object-fit: cover;
             transition: opacity 0.3s ease-in-out;
         }
 
-    .card-body {
-        padding: 15px;
-        text-align: center; /* Metni ortalamak için */
+    .movie:hover img {
+        opacity: 0.3; /* Arka planın üstüne hafif şeffaflık uygulanır */
     }
 
-    .card-title {
-        font-size: 1.1em;
-        margin-top: 10px;
-    }
-
-    .card:hover img {
-        opacity: 0.3; /* Resmin opaklığını azaltmak için */
-    }
-
-    .card:hover:before {
-        content: '';
-        background-image: url('/moviehunter/css/images/image-hover.png');
-        background-size: cover; /* Arkaplan resmini kaplayacak şekilde ayarlayın */
+    .movie .overlay {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        opacity: 1;
-        pointer-events: none;
+        background: url('images/image-hover.png') no-repeat center center;
+        background-size: cover;
+        opacity: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        transition: opacity 0.3s ease-in-out;
+        z-index: 1;
     }
 
-    
+    .movie:hover .overlay {
+        opacity: 1;
+    }
+
+    .movie .overlay .name {
+        color: #fff;
+        font-size: 1.5em;
+        font-weight: bold;
+        text-align: center;
+        text-transform: uppercase;
+        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+        margin-top: 10px;
+    }
 </style>
 
 <div class="container mt-4">
-    
     @if (Model != null && Model.Any())
     {
         <div class="row row-cols-1 row-cols-md-3 g-4">
             @foreach (var movie in Model)
             {
-                <div class="col">
+                <div class="col d-flex justify-content-center">
                     <a href="@Url.Action("GetFilmDetails", "Home", new { id = movie.Id })">
-                        <div class="card">
-                            <img src="@movie.ImagePath" class="card-img-top" alt="@movie.Title">
-                            <div class="card-body">
-                                <h5 class="card-title">@movie.Title</h5>
-                                <p class="card-text">@movie.Description</p>
+                        <div class="movie">
+                            <div class="movie-image">
+                                <img src="@movie.ImagePath" alt="@movie.Title">
+                                <div class="overlay">
+                                    <span class="name">@movie.Title</span>
+                                </div>
                             </div>
                         </div>
                     </a>
@@ -88,5 +101,3 @@
         </div>
     }
 </div>
-
-
