@@ -1,52 +1,102 @@
 ﻿@model IEnumerable<MovieWebsite.Application.Models.VMs.UserFilmLikeViewModels.UserFilmLikeVM>
 
 @{
-    ViewData["Title"] = "LikedFilms";
+    ViewData["Title"] = "Liked Films";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<style>
+    .liked-films-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        padding: 20px;
+        margin: 0 auto;
+    }
 
+    .film-card {
+        background: linear-gradient(145deg, #ffffff, #e6e6e6);
+        border-radius: 15px;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
 
-<h2>Beğendiğiniz Filmler</h2>
+        .film-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .film-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+    .film-card-content {
+        padding: 15px;
+        text-align: center;
+    }
+
+        .film-card-content h3 {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .film-card-content p {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 15px;
+        }
+
+    .btn-container {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 15px 15px;
+    }
+
+    .btn-remove {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        .btn-remove:hover {
+            background-color: #c82333;
+        }
+</style>
+
+<h2 class="text-center">Liked Films</h2>
 
 @if (!Model.Any())
 {
-    <p>Henüz hiçbir filmi beğenmediniz.</p>
+    <p class="text-center mt-4">Henüz hiçbir filmi beğenmediniz.</p>
 }
 else
 {
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Film Adı</th>
-                <th>Açıklama</th>
-                <th>Resim</th>
-                
-                <th>İşlemler</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var film in Model)
-            {
-                <tr>
-                    <td>@film.Films.FirstOrDefault()?.Title</td>
-                    <td>@film.Films.FirstOrDefault()?.Description</td>
-                    <td>
-                        <img src="@film.Films.FirstOrDefault()?.ImagePath" alt="@film.Films.FirstOrDefault()?.Title" style="width: 100px; height: auto;" />
-                    </td>
-                    
-                    <td>
-                        <form asp-action="Dislike" asp-controller="UserFilmLike" asp-area="Admin" method="post">
-                            <input type="hidden" name="filmId" value="@film.FilmId" />
-                            <button type="submit" class="btn btn-danger">
-                                <i class="fas fa-thumbs-down"></i> Beğenmekten Vazgeç
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <div class="liked-films-container">
+        @foreach (var film in Model)
+        {
+            <div class="film-card">
+                <img src="@film.Films.FirstOrDefault()?.ImagePath" alt="@film.Films.FirstOrDefault()?.Title" />
+                <div class="film-card-content">
+                    <h3>@film.Films.FirstOrDefault()?.Title</h3>
+                    <p>@film.Films.FirstOrDefault()?.Description</p>
+                </div>
+                <div class="btn-container">
+                    <form asp-action="RemoveLike" asp-controller="UserFilmLike" asp-area="Admin" method="post">
+                        <input type="hidden" name="filmId" value="@film.FilmId" />
+                        <button type="submit" class="btn-remove">
+                            <i class="fas fa-thumbs-down"></i> Beğenmekten Vazgeç
+                        </button>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
 }
-
-

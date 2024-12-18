@@ -1,131 +1,95 @@
 ﻿@model IEnumerable<MovieWebsite.Application.Models.VMs.UserFilmLikeViewModels.UserFilmLikeVM>
 
 @{
-    ViewData["Title"] = "DisLikedFilms";
+    ViewData["Title"] = "Disliked Films";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>DisLikedFilms</h2>
-
-
 <style>
-    /* Ana Konteyner Stili */
     .disliked-films-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-    }
-
-    /* Kart Stili */
-    .film-card {
-        background-color: #f8f9fa;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
         display: flex;
-        flex-direction: column;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 20px;
     }
 
-    .film-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    .film-card {
+        flex: 1 1 calc(33.333% - 20px);
+        background-color: #fdf2f2;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.2s, box-shadow 0.3s;
     }
 
-    /* Film Görseli */
-    .film-card img {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-    }
+        .film-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
 
-    /* Kart İçeriği */
+        .film-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
     .film-card-content {
         padding: 15px;
-        text-align: center;
+        text-align: left;
     }
 
-    .film-title {
-        font-size: 18px;
-        font-weight: bold;
-        margin-bottom: 10px;
-        color: #343a40;
-    }
+        .film-card-content h3 {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #b21f2d;
+        }
 
-    .film-description {
-        font-size: 14px;
-        color: #6c757d;
-        margin-bottom: 15px;
-    }
-
-    /* Butonlar */
-    .btn {
-        font-size: 14px;
-        padding: 8px 12px;
-        margin: 5px;
-        border-radius: 4px;
-        text-transform: uppercase;
-        transition: background-color 0.3s ease;
-    }
+        .film-card-content p {
+            font-size: 0.9rem;
+            color: #444;
+            margin: 5px 0 15px;
+        }
 
     .btn-remove {
-        background-color: #dc3545;
+        background-color: #f05454;
         color: white;
+        padding: 8px 10px;
+        font-size: 14px;
         border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
     }
 
-    .btn-remove:hover {
-        background-color: #c82333;
-    }
-
-    .btn-details {
-        background-color: #007bff;
-        color: white;
-        border: none;
-    }
-
-    .btn-details:hover {
-        background-color: #0056b3;
-    }
+        .btn-remove:hover {
+            background-color: #c73e3e;
+        }
 </style>
 
-<h2 class="text-center mb-4">DisLiked Films</h2>
+<h2 class="text-center">Disliked Films</h2>
 
-<div class="disliked-films-container">
-    @if (!Model.Any())
-    {
-        <div class="text-center">
-            <h3>No disliked films found.</h3>
-            <p>You haven't disliked any films yet.</p>
-        </div>
-    }
-    else
-    {
-        @foreach (var item in Model)
+@if (!Model.Any())
+{
+    <p class="text-center mt-4">Henüz beğenmediğiniz bir film bulunmamaktadır.</p>
+}
+else
+{
+    <div class="disliked-films-container">
+        @foreach (var film in Model)
         {
-            var film = item.Films?.FirstOrDefault(f => f.Id == item.FilmId); 
-            if (film != null)
-            {
-                <div class="film-card">
-                    <img src="@film.ImagePath" alt="@film.Title" />
-                    <div class="film-card-content">
-                        <h3 class="film-title">@film.Title</h3>
-                        <p class="film-description">@film.Description</p>
-                        <form asp-area="Admin" asp-controller="UserFilmLike" asp-action="RemoveDislike" method="post">
-                            <input type="hidden" name="filmId" value="@film.Id" />
-                            <input type="hidden" name="userId" value="@item.UserId" />
-                            <button type="submit" class="btn btn-remove">Remove Dislike</button>
-                        </form>
-                        <a asp-area="Public" asp-controller="Film" asp-action="Details" asp-route-id="@film.Id" class="btn btn-details">
-                            View Details
-                        </a>
-                    </div>
+            <div class="film-card">
+                <img src="@film.Films.FirstOrDefault()?.ImagePath" alt="@film.Films.FirstOrDefault()?.Title" />
+                <div class="film-card-content">
+                    <h3>@film.Films.FirstOrDefault()?.Title</h3>
+                    <p>@film.Films.FirstOrDefault()?.Description</p>
+                    <form asp-action="RemoveDislike" asp-controller="UserFilmLike" asp-area="Admin" method="post">
+                        <input type="hidden" name="filmId" value="@film.FilmId" />
+                        <button type="submit" class="btn-remove">
+                            <i class="fas fa-times"></i> Beğenmekten Vazgeç
+                        </button>
+                    </form>
                 </div>
-            }
+            </div>
         }
-    }
-</div>
-
+    </div>
+}

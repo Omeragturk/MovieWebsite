@@ -6,29 +6,38 @@
     <title>@ViewData["Title"] - MovieWebsite.UI</title>
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" crossorigin="anonymous" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/GetFilmDetails.css" />
+    <link rel="stylesheet" href="~/css/UserFilmLikeButtons.css"/>
+    <link rel="stylesheet" href="~/moviehunter/css/style.css"/>
+    <link rel="stylesheet" href="~/moviehunter/css/responsive.css"/>
+    <link rel="stylesheet" href="~/moviehunter/css/ie6.css"/>
+
 
     <!-- Font Awesome for icons -->
     <script src="https://kit.fontawesome.com/8e1b0b6f3d.js" crossorigin="anonymous"></script>
+    
+
+    <!-- Custom Styles -->
+    
 </head>
 <body class="d-flex flex-column min-vh-100">
     <!-- Header and Navigation -->
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 shadow-sm">
+        <nav class="navbar navbar-expand-lg py-3 shadow-lg">
             <div class="container-fluid">
                 <a class="navbar-brand text-light" asp-controller="Home" asp-action="Index">🎬 MovieWebsite</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse justify-content-between">
+                <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item"><a class="nav-link text-light" asp-controller="Home" asp-action="Index">Home</a></li>
-                        
-                        <li class="nav-item"><a class="nav-link text-light" asp-controller="Home" asp-action="Index">Films</a></li>
-                        <li class="nav-item"><a class="nav-link text-light" asp-controller="Genre" asp-action="Index" asp-area="Admin">Genres</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Films</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Genre" asp-action="Index" asp-area="Admin">Genres</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="UserFilmLike" asp-action="LikedFilms" asp-area="Admin">User Film Likes</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="UserFilmLike" asp-action="DislikedFilms" asp-area="Admin">User Film Dislikes</a></li>
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
@@ -38,7 +47,6 @@
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 @if (User.Identity.IsAuthenticated)
                                 {
-                                    
                                     <li><a class="dropdown-item" asp-controller="Account" asp-action="Edit" asp-route-userName="@User.Identity.Name">Edit Profile</a></li>
                                     <li><hr class="dropdown-divider" /></li>
                                     <li><a class="dropdown-item" asp-controller="Account" asp-action="Logout">Logout</a></li>
@@ -58,24 +66,25 @@
     </header>
 
     <!-- Main Content -->
-    <div class="container flex-grow-1">
+    <div class="container flex-grow-1 py-4">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-    <footer class="footer bg-dark text-light py-4 mt-auto">
-        <div class="container text-center">
+
+    <!-- Footer -->
+    <footer class="footer text-center py-4 mt-auto">
+        <div class="container">
             <small>&copy; 2024 MovieWebsite.UI. All Rights Reserved.</small>
             <p>
-                <a href="https://twitter.com" target="_blank" class="text-light me-3"><i class="fab fa-twitter"></i></a>
-                <a href="https://facebook.com" target="_blank" class="text-light me-3"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://instagram.com" target="_blank" class="text-light me-3"><i class="fab fa-instagram"></i></a>
+                <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
             </p>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

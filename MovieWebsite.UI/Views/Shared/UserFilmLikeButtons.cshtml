@@ -1,76 +1,22 @@
 ﻿@model MovieWebsite.Application.Models.VMs.UserFilmLikeViewModels.UserFilmLikeVM
-
-
-<style>
-    .btn {
-        padding: 10px 15px;
-        font-size: 16px;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .btn-success {
-        background-color: #4caf50;
-        color: white;
-        border: none;
-    }
-
-    .btn-danger {
-        background-color: #f44336;
-        color: white;
-        border: none;
-    }
-
-    .active-like {
-        background-color: #28a745;
-        color: white;
-        border: 2px solid #218838;
-    }
-
-    .active-dislike {
-        background-color: #dc3545;
-        color: white;
-        border: 2px solid #c82333;
-    }
-
-    }
-
-    /* Hover Efektleri */
-    .btn:hover {
-        transform: scale(1.05);
-    }
-
-    .btn-success:hover:not(.active-like) {
-        background-color: #66bb6a;
-    }
-
-    .btn-danger:hover:not(.active-dislike) {
-        background-color: #e57373;
-    }
-</style>
-
-
-
-
-<div class="buttons">
+<div class="d-flex justify-content-center gap-3 mt-3">
     <!-- Like Button -->
     <form asp-area="Admin" asp-controller="UserFilmLike" asp-action="Like" method="post">
         <input type="hidden" name="filmId" value="@Model.FilmId" />
-        <button type="submit" class="btn btn-success @(Model.Liked ? "active-like" : "")">
-            <i class="fas fa-thumbs-up"></i> Beğen
+        <button type="submit"
+                class="btn btn-outline-success d-flex align-items-center"
+                title="Like">
+            <i class="fa-regular fa-thumbs-up"></i> Like
         </button>
     </form>
 
     <!-- Dislike Button -->
     <form asp-area="Admin" asp-controller="UserFilmLike" asp-action="Dislike" method="post">
         <input type="hidden" name="filmId" value="@Model.FilmId" />
-        <button type="submit" class="btn btn-danger @(Model.Disliked ? "active-dislike" : "")">
-            <i class="fas fa-thumbs-down"></i> Beğenme
+        <button type="submit"
+                class="btn btn-outline-danger d-flex align-items-center"
+                title="Dislike">
+            <i class="fa-regular fa-thumbs-down"></i> Dislike
         </button>
     </form>
 </div>
-
-
-
-

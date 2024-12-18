@@ -1,0 +1,44 @@
+﻿<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" >
+.buttons {
+    margin-top: 20px;
+}
+
+.like-btn, .dislike-btn {
+    font-size: 1.5rem;
+    border: none;
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: #fff;
+}
+
+.like-btn {
+    background-color: #28a745; /* Yeşil */
+}
+
+    .like-btn:hover {
+        background-color: #218838;
+        transform: scale(1.1);
+    }
+
+.dislike-btn {
+    background-color: #dc3545; /* Kırmızı */
+}
+
+    .dislike-btn:hover {
+        background-color: #c82333;
+        transform: scale(1.1);
+    }
+
+/* Aktif Durum */
+.active-like {
+    background-color: #218838;
+    transform: scale(1.15);
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
+}
+
+.active-dislike {
+    background-color: #c82333;
+    transform: scale(1.15);
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
+}

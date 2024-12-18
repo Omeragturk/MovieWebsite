@@ -10,10 +10,11 @@ namespace MovieWebsite.Application.Models.DTOs.UserFilmLikeDTos
 {
     public class UserFilmLikeDto
     {
-        public int Id { get; set; }
+        
         public string UserId { get; set; }
         public int FilmId { get; set; }
-        public bool Disliked { get; set; }  
+        public bool Disliked { get; set; }
+        public bool Liked { get; set; }
         public List<CreateFilmDTO> Films { get; set; }
         
     }

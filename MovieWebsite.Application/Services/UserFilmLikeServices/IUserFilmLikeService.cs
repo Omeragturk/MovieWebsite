@@ -24,6 +24,7 @@ namespace MovieWebsite.Application.Services.UserFilmLikeServices
         
         Task<UserFilmLikeVM> RemoveDislikeAsync(string userId, int filmId);
 
+        Task<bool> HasUserDislikedFilmAsync(string userId, int filmId);
 
     }
 }

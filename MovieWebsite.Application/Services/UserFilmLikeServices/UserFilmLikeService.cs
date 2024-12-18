@@ -8,6 +8,7 @@ using MovieWebsite.Domain.Enums;
 using MovieWebsite.Domain.Interfaces;
 using MovieWebsite.Infrastructure.Context;
 using MovieWebsite.Infrastructure.Repositories;
+using SendGrid.Helpers.Errors.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,163 +34,139 @@ namespace MovieWebsite.Application.Services.UserFilmLikeServices
             _mapper = mapper;
         }
 
-        public async Task<UserFilmLikeDto> DislikeFilmAsync(string userId, int filmId)
+
+        public async Task<UserFilmLikeDto> LikeFilmAsync(string userId, int filmId)
         {
-            var existingLike = await _userFilmLikeRepository.GetDefault(uf => uf.UserId == userId && uf.FilmId == filmId);
+            // Check if the film exists
+            var film = await _filmRepository.GetDefault(f => f.Id == filmId);
+            
+
+            // Check if the user already liked the film
+            var existingLike = await _userFilmLikeRepository.GetDefault(like => like.UserId == userId && like.FilmId == filmId);
             if (existingLike != null)
             {
-
-                return _mapper.Map<UserFilmLikeDto>(existingLike);
-            }
-
-            var user = await _userRepository.GetDefault(u => u.Id == userId);
-            var film = await _filmRepository.GetDefault(f => f.Id == filmId);
-
-            if (user == null || film == null)
-            {
-                // User or film not found, return null
-                return null;
-            }
-            var userFilmLike = new UserFilmLike
-            {
-                UserId = userId,
-                FilmId = filmId,
-                User = user,
-                Film = film,
-                Disliked = true,
-                Liked = false,
-                CreateDate = DateTime.Now
                 
-            };
-            await _userFilmLikeRepository.Create(userFilmLike);
-            return _mapper.Map<UserFilmLikeDto>(userFilmLike);
+                    
+
+                // Update existing dislike to like
+                existingLike.Liked = true;
+                existingLike.Disliked = false;
+                existingLike.UpdateDate = DateTime.Now;
+                await _userFilmLikeRepository.Update(existingLike);
+            }
+            else
+            {
+                // Create a new like entry
+                var userFilmLike = new UserFilmLike
+                {
+                    UserId = userId,
+                    FilmId = filmId,
+                    Liked = true,
+                    Disliked = false,
+                    CreateDate = DateTime.Now,
+                    Status = Status.Active
+                };
+                await _userFilmLikeRepository.Create(userFilmLike);
+            }
+
+            return new UserFilmLikeDto { UserId = userId, FilmId = filmId, Liked = true };
         }
 
-        public async Task<IEnumerable<UserFilmLikeVM>> GetDissLikedFilmsByUserAsync(string userId)
+        public async Task<UserFilmLikeDto> DislikeFilmAsync(string userId, int filmId)
         {
-            var userFilmLikes = await _context.UserFilmLikes
-                .Include(uf => uf.Film) // Films ilişkisini yükleyin
-                .Where(uf => uf.UserId == userId && uf.Disliked)
-                .ToListAsync();
+            // Check if the film exists
+            var film = await _filmRepository.GetDefault(f => f.Id == filmId);
+            if (film == null)
+                throw new Exception("Film not found.");
 
-            return userFilmLikes.Select(uf => new UserFilmLikeVM
+            // Check if the user already disliked the film
+            var existingDislike = await _userFilmLikeRepository.GetDefault(like => like.UserId == userId && like.FilmId == filmId);
+            if (existingDislike != null)
             {
-                FilmId = uf.FilmId,
-                Films = new List<FilmVM>
+
+
+                // Update existing like to dislike
+                existingDislike.Liked = false;
+                existingDislike.Disliked = true;
+                existingDislike.UpdateDate = DateTime.Now;
+                await _userFilmLikeRepository.Update(existingDislike);
+            }
+            else
+            {
+                // Create a new dislike entry
+                var userFilmLike = new UserFilmLike
                 {
-                    _mapper.Map<FilmVM>(uf.Film)
-                }
+                    UserId = userId,
+                    FilmId = filmId,
+                    Liked = false,
+                    Disliked = true,
+                    CreateDate = DateTime.Now,
+                    Status = Status.Active
+                };
+                await _userFilmLikeRepository.Create(userFilmLike);
+            }
 
-            });
-
-
+            return new UserFilmLikeDto { UserId = userId, FilmId = filmId, Disliked = true };
         }
 
         public async Task<IEnumerable<UserFilmLikeVM>> GetLikedFilmsByUserAsync(string userId)
         {
-            var userFilmLikes = await _context.UserFilmLikes
-                .Include(uf => uf.Film) // Films ilişkisini yükleyin
-                .Where(uf => uf.UserId == userId)
-                .ToListAsync();
+           var likedFilms= await _userFilmLikeRepository.GetDefaults(like => like.UserId == userId && like.Liked);
 
-            return userFilmLikes.Select(uf => new UserFilmLikeVM
+            return likedFilms.Select(like => new UserFilmLikeVM
             {
-                FilmId = uf.FilmId,
-                Films = new List<FilmVM>
-                {
-                    _mapper.Map<FilmVM>(uf.Film)
-                }
+                FilmId = like.FilmId,
+                Liked = like.Liked,
+                Films = _mapper.Map<List<FilmVM>>(_filmRepository.GetDefaults(f => f.Id == like.FilmId).Result)
 
             });
         }
 
+        public async Task<IEnumerable<UserFilmLikeVM>> GetDissLikedFilmsByUserAsync(string userId)
+        {
+            var dislikedFilms = await _userFilmLikeRepository.GetDefaults(like => like.UserId == userId && like.Disliked);
+
+            return dislikedFilms.Select(like => new UserFilmLikeVM
+            {
+                FilmId = like.FilmId,                
+                Disliked = like.Disliked,
+                Films = _mapper.Map<List<FilmVM>>(_filmRepository.GetDefaults(f => f.Id == like.FilmId).Result)
+            });
+        }
 
         public async Task<bool> HasUserLikedFilmAsync(string userId, int filmId)
         {
-            
-            return await _userFilmLikeRepository.Any(uf => uf.UserId == userId && uf.FilmId == filmId);
-        }
-
-        public async Task<UserFilmLikeDto> LikeFilmAsync(string userId, int filmId)
-        {
-            
-            var existingLike = await _userFilmLikeRepository.GetDefault(uf => uf.UserId == userId && uf.FilmId == filmId);
-            if (existingLike != null)
-            {
-                
-                return _mapper.Map<UserFilmLikeDto>(existingLike);
-            }
-
-            
-            var user = await _userRepository.GetDefault(u => u.Id == userId);
-            var film = await _filmRepository.GetDefault(f => f.Id == filmId);
-
-            if (user == null || film == null)
-            {
-                // User or film not found, return null
-                return null;
-            }
-
-            
-            var userFilmLike = new UserFilmLike
-            {
-                UserId = userId,
-                FilmId = filmId,
-                User = user,
-                Film = film,
-                Disliked = false,
-                Liked = true,
-                CreateDate = DateTime.Now
-                
-            };
-
-            
-            await _userFilmLikeRepository.Create(userFilmLike);
-
-            
-            return _mapper.Map<UserFilmLikeDto>(userFilmLike);
-        }
-
-        public async Task<UserFilmLikeVM> RemoveDislikeAsync(string userId, int filmId)
-        {
-            var existingLike =await _userFilmLikeRepository.GetDefault(uf => uf.UserId == userId && uf.FilmId == filmId);
-            if (existingLike == null)
-            {
-                return null;
-            }
-
-            if (!existingLike.Disliked)
-            {
-                return null;
-            }
-
-            await _userFilmLikeRepository.Delete(existingLike);
-            return _mapper.Map<UserFilmLikeVM>(existingLike);
-
-
-
-
-
-
+            var like = await _userFilmLikeRepository.GetDefault(like => like.UserId == userId && like.FilmId == filmId && like.Liked);
+            return like != null;
         }
 
         public async Task<UserFilmLikeVM> RemoveLikeAsync(string userId, int filmId)
         {
-            var existingLike = await _userFilmLikeRepository.GetDefault(uf => uf.UserId == userId && uf.FilmId == filmId);
-            if (existingLike == null)
-            {
-                return null;
-            }
+            var like = await _userFilmLikeRepository.GetDefault(like => like.UserId == userId && like.FilmId == filmId && like.Liked);
+            
 
-            if (existingLike.Liked)
-            {
-                return null;
-            }
+            like.Liked = false;
+            like.UpdateDate = DateTime.Now;
+            await _userFilmLikeRepository.Update(like);
 
-            await _userFilmLikeRepository.Delete(existingLike);
-            return _mapper.Map<UserFilmLikeVM>(existingLike);
+            return new UserFilmLikeVM { FilmId = filmId, Liked = false };
+        }
 
+        public async Task<UserFilmLikeVM> RemoveDislikeAsync(string userId, int filmId)
+        {
+            var dislike = await _userFilmLikeRepository.GetDefault(like => like.UserId == userId && like.FilmId == filmId && like.Disliked);
+            
 
+            dislike.Disliked = false;
+            dislike.UpdateDate = DateTime.Now;
+            await _userFilmLikeRepository.Update(dislike);
+
+            return new UserFilmLikeVM { FilmId = filmId, Disliked = false };
+        }
+        public async Task<bool> HasUserDislikedFilmAsync(string userId, int filmId)
+        {
+            var dislike = await _userFilmLikeRepository.GetDefault(like => like.UserId == userId && like.FilmId == filmId && like.Disliked);
+            return dislike != null;
         }
     }
 }
