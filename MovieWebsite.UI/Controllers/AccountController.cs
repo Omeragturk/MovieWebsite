@@ -8,6 +8,7 @@ using MovieWebsite.Domain.Entities;
 namespace MovieWebsite.UI.Controllers
 {
     [Authorize]
+    [AllowAnonymous]
     public class AccountController : Controller
     {       
             private readonly UserManager<User> _userManager;
@@ -132,7 +133,7 @@ namespace MovieWebsite.UI.Controllers
                             TempData["Success"] = "Login successful as admin.";
                             return RedirectToAction("Index", "Home", new { area = "Admin" });
                         }
-                        else if (await _userService.UserInRole(loginDto.UserName, "Member"))
+                        else if (await _userService.UserInRole(loginDto.UserName, "User"))
                         {
                             TempData["Success"] = "Login successful as member.";
                             return RedirectToAction("Index", "Home", new { area = "Member" });

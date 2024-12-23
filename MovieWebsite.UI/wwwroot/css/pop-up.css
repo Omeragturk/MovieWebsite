@@ -1,0 +1,73 @@
+﻿.modal-content {
+    background: linear-gradient(145deg, #ffffff, #e6e6e6);
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    position: relative;
+}
+
+.modal-header {
+    background: linear-gradient(90deg, #6a11cb, #2575fc);
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    padding: 20px;
+    border-bottom: none;
+}
+
+.modal-body {
+    padding: 40px;
+    text-align: center;
+}
+
+    .modal-body p {
+        font-size: 1.2rem;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .modal-body i {
+        color: #ff5722;
+        animation: pulse 2s infinite;
+    }
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.modal-footer {
+    background: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+    border-top: none;
+}
+
+    .modal-footer .btn-primary {
+        background: linear-gradient(90deg, #6a11cb, #2575fc);
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+        .modal-footer .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+    .modal-footer .btn-outline-secondary {
+        color: #6c757d;
+        border-color: #6c757d;
+        padding: 10px 20px;
+    }
+
+        .modal-footer .btn-outline-secondary:hover {
+            background: #6c757d;
+            color: white;
+        }

@@ -1,6 +1,5 @@
-﻿using ETicaretPlatformu.Application.Extensions;
-
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
+using MovieWebsite.Application.Extensions;
 using MovieWebsite.Domain.Enums;
 using System;
 using System.Collections.Generic;

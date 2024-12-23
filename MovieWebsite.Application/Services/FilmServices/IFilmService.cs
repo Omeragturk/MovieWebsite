@@ -1,4 +1,5 @@
-﻿using MovieWebsite.Application.Models.DTOs.FilmDTos;
+﻿using Microsoft.AspNetCore.Http;
+using MovieWebsite.Application.Models.DTOs.FilmDTos;
 using MovieWebsite.Application.Models.VMs.FilmVMs;
 using MovieWebsite.Domain.Entities;
 using System;
@@ -15,8 +16,9 @@ namespace MovieWebsite.Application.Services.FilmServices
         Task<List<FilmVM>> GetAllFilms();
         Task<FilmVM> GetFilmByIdAsync(int id);
         Task Create(CreateFilmDTO filmDTO);
-        Task UpdateFilm(UpdateFilmDto filmDto, int id);
-        Task DeleteFilmAsync(int id); 
+        Task UpdateFilm(UpdateFilmDto filmDto);
+        Task DeleteFilmAsync(int id);
+        Task<string> SaveFile(IFormFile file);
         
         Task<List<FilmVM>> GetFilmsByGenreId(int genreId);
     }

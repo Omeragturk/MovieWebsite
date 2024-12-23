@@ -1,5 +1,5 @@
-﻿using ETicaretPlatformu.Application.Extensions;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
+using MovieWebsite.Application.Extensions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,8 +18,8 @@ namespace MovieWebsite.Application.Models.DTOs.FilmDTos
         [PictureFileExtensionAttiribute]
         public string? ImagePath { get; set; }
 
-        [NotMapped]
-        public IFormFile UpLoadPath { get; set; }
+        
+        public IFormFile? UpLoadPath { get; set; }
 
         public DateTime CreateDate => DateTime.Now;
         public int GenreId { get; set; }

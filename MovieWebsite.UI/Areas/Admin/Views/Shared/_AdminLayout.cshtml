@@ -40,23 +40,24 @@
                     </li>
                 }
                 <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
-                        <div class="sb-nav-link-icon"><i class="fab fa-product-hunt"></i></div>
+                    <a class="nav-link" asp-area="Admin" asp-controller="Film" asp-action="Index">
+                        <div class="sb-nav-link-icon"><i class="fa-solid fa-film"></i></div>
                         Films
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" asp-area="" asp-controller="Genre" asp-action="Index">
-                        <div class="sb-nav-link-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+                        <div class="sb-nav-link-icon"><i class="fa-solid fa-film"></i></div>
                         Genre
                     </a>
                 </li>
-               
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="UserFilmLike" asp-action="LikedFilms">
-                        <div class="sb-nav-link-icon"><i class="fa-solid fa-cart-shopping"></i></div>
-                        User Film Likes
-                    </a>
+               @if(User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="UserFilmLike" asp-action="LikedFilms">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+                            User Film Likes
+                        </a>
                     </li>
                     <li>
                         <a class="nav-link" asp-area="" asp-controller="UserFilmLike" asp-action="DislikedFilms">
@@ -64,6 +65,8 @@
                             User Film Dislikes
                         </a>
                     </li>
+                }
+             
                
             </ul>
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">

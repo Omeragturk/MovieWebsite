@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ETicaretPlatformu.Application.Extensions
+namespace MovieWebsite.Application.Extensions
 {
     public class PictureFileExtensionAttiribute : ValidationAttribute
     {

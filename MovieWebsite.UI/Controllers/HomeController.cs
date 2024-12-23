@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MovieWebsite.Application.Models.VMs.FilmVMs;
 using MovieWebsite.Application.Services.FilmServices;
 using MovieWebsite.Application.Services.GenreServices;
@@ -22,6 +23,7 @@ namespace MovieWebsite.UI.Controllers
             _userService = userService;
             _userFilmLikeService = userFilmLikeService;
         }
+        [AllowAnonymous]
         public async Task<ActionResult> Index(int? genreId)
         {
             var films = await _filmService.GetAllFilms();
@@ -36,10 +38,11 @@ namespace MovieWebsite.UI.Controllers
 
         }
 
-
+        [Authorize]
         public async Task<IActionResult> GetFilmDetails(int id)
         {
             var filmDetail = await _filmService.GetFilmByIdAsync(id);
+
             var userId = await _userService.GetByUserName(User.Identity.Name);
             var userLiked = await _userFilmLikeService.HasUserLikedFilmAsync(userId.Id, id);
             var userDisliked = await _userFilmLikeService.HasUserDislikedFilmAsync(userId.Id, id);

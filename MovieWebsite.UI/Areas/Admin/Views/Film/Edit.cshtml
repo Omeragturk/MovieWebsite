@@ -1,64 +1,62 @@
 ﻿@model MovieWebsite.Application.Models.DTOs.FilmDTos.UpdateFilmDto
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Film";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Edit</h1>
+<div class="card shadow-lg mt-4">
+    <div class="card-header bg-primary text-white">
+        <h2 class="card-title mb-0">Edit Film</h2>
+    </div>
+    <div class="card-body">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
 
-<h4>UpdateFilmDto</h4>
-<hr />
-<div class="row" >
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+            <div class="mb-4">
+                <label asp-for="Title" class="form-label fw-bold">Title</label>
+                <input asp-for="Title" class="form-control" placeholder="Enter film title" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+
+            <div class="mb-4">
+                <label asp-for="Description" class="form-label fw-bold">Description</label>
+                <textarea asp-for="Description" class="form-control" rows="4" placeholder="Enter film description"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ImagePath" class="control-label"></label>
-                <input asp-for="ImagePath" class="form-control" />
-                <span asp-validation-for="ImagePath" class="text-danger"></span>
+
+            <div class="mb-4">
+                <label asp-for="UpLoadPath" class="form-label fw-bold">Image</label>
+                <input asp-for="UpLoadPath" class="form-control" type="file" />
+                <span asp-validation-for="UpLoadPath" class="text-danger"></span>
+                @if (!string.IsNullOrEmpty(Model.ImagePath))
+                {
+                    <div class="mt-3">
+                        <img src="@Model.ImagePath" alt="@Model.Title" class="img-thumbnail shadow" style="width: 200px;" />
+                    </div>
+                }
             </div>
-            <div class="form-group">
-                <label asp-for="GenreId" class="control-label"></label>
-                <input asp-for="GenreId" class="form-control" />
+
+            <div class="mb-4">
+                <label asp-for="GenreId" class="form-label fw-bold">Genre</label>
+                <select asp-for="GenreId" class="form-select" asp-items="ViewBag.Genres">
+                    <option value="">Select a genre</option>
+                </select>
                 <span asp-validation-for="GenreId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="CreateDate" class="control-label"></label>
-                <input asp-for="CreateDate" class="form-control" />
-                <span asp-validation-for="CreateDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GenreName" class="control-label"></label>
-                <input asp-for="GenreName" class="form-control" />
-                <span asp-validation-for="GenreName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-success px-4">Save Changes</button>
+                <a asp-action="Index" class="btn btn-secondary px-4">Back to List</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

@@ -21,40 +21,38 @@ namespace MovieWebsite.UI.Areas.Admin.Controllers
             _genreService = genreService;
         }
 
-        [AllowAnonymous]
+        
         public async Task<IActionResult> Index()
         {
-            return View(await _filmService.GetAllFilms());
+            var films = await _filmService.GetAllFilms();
+            return View(films);
         }
       
         public async Task<IActionResult> Create()
         {
             ViewBag.Genres = new SelectList(await _genreService.GetGenres(), "Id", "Name");
             return View();
+
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateFilmDTO filmDto)
         {
+            if(filmDto.UpLoadPath != null)
+            {
+
+                filmDto.ImagePath = await _filmService.SaveFile(filmDto.UpLoadPath);
+            }
             if (ModelState.IsValid)
             {
-                if (filmDto.UpLoadPath != null && filmDto.UpLoadPath.Length > 0)
-                {
-                    var filePath = Path.Combine("wwwroot/images", filmDto.UpLoadPath.FileName);
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await filmDto.UpLoadPath.CopyToAsync(stream);
-                    }
-                    filmDto.ImagePath = "/images/" + filmDto.UpLoadPath.FileName;
-                }
-
                 await _filmService.Create(filmDto);
+                ViewBag.Genres = new SelectList(await _genreService.GetGenres(), "Id", "Name");
                 return RedirectToAction(nameof(Index));
             }
-
-            ViewBag.Genres = new SelectList(await _genreService.GetGenres(), "Id", "Name");
+           
             return View(filmDto);
+
         }
 
         public async Task<IActionResult> Edit(int id)
@@ -64,40 +62,52 @@ namespace MovieWebsite.UI.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewBag.Genres = new SelectList(await _genreService.GetGenres(), "Id", "Name");
-            return View(film);
+
+            // Convert FilmVM to UpdateFilmDto
+            var updateFilmDto = new UpdateFilmDto
+            {
+                Id = film.Id,
+                Title = film.Title,
+                Description = film.Description,
+                GenreId = film.GenreId,
+                GenreName = film.GenreName,
+                ImagePath = film.ImagePath,
+            };
+
+            ViewBag.Genres = new SelectList(await _genreService.GetGenres(), "Id", "Name", film.GenreId);
+            return View(updateFilmDto);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(UpdateFilmDto filmDto, int id)
+        public async Task<IActionResult> Edit(UpdateFilmDto filmDto)
         {
-            if (ModelState.IsValid)
+            if(!ModelState.IsValid)
             {
-                await _filmService.UpdateFilm(filmDto, id);
+                ViewBag.Genres = new SelectList(await _genreService.GetGenres(), "Id", "Name", filmDto.GenreId);
+                return View(filmDto);
+            }
+            else
+            {
+                await _filmService.UpdateFilm(filmDto);
+                TempData["Success"] = "Film updated successfully.";
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag.Genres = new SelectList(await _genreService.GetGenres(), "Id", "Name");
-            return View(filmDto);
+
         }
 
+
+
+        
         public async Task<IActionResult> Delete(int id)
         {
-            var film = await _filmService.GetFilmByIdAsync(id);
-            if (film == null)
-            {
-                return NotFound();
-            }
-            return View(film);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
             await _filmService.DeleteFilmAsync(id);
+            TempData["Success"] = "Film deleted successfully.";
             return RedirectToAction(nameof(Index));
         }
+
+
+
 
         public async Task<IActionResult> Details(int id)
         {

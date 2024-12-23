@@ -35,6 +35,7 @@ namespace MovieWebsite.Application.AutoMapper
             CreateMap<UserFilmLike,UserFilmLikeDto>().ReverseMap();
             CreateMap<UserFilmLike,UserFilmLikeVM>().ReverseMap();
             CreateMap<Film, UserFilmLikeVM>().ReverseMap();
+            CreateMap<FilmVM, UpdateFilmDto>().ReverseMap();
 
 
 

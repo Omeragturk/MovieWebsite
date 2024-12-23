@@ -13,6 +13,144 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/css/adminlte.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="~/css/register.css">
+    <style>
+        /* Background Image with Darkening Overlay */
+        body {
+            background-image: url('https://miro.medium.com/v2/resize:fit:1200/1*AcXHo7VoO7rh17rWrCOpUg.png');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+        }
+
+        /* Dark overlay for the background */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Darker overlay */
+            z-index: -1; /* Placed behind content */
+        }
+
+        /* Styling the Registration Box */
+        .register-box {
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent dark background */
+            padding: 40px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px); /* Smooth blur effect on the background */
+            transition: all 0.3s ease-in-out;
+        }
+
+        .register-box:hover {
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .register-logo a {
+            font-size: 1.8em; /* Reduced font size */
+            font-weight: bold;
+            color: #fff;
+            text-align: center;
+            display: block;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        .card-body {
+            background-color: transparent;
+            padding: 30px;
+        }
+
+        .login-box-msg {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #ccc;
+        }
+
+        /* Form Controls Styling */
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .form-control {
+            border-radius: 25px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            font-size: 1.1em;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            background-color: #fff;
+            border-color: #4e73df;
+            box-shadow: 0 0 10px rgba(78, 115, 223, 0.5);
+        }
+
+        .input-group-text {
+            background-color: #4e73df;
+            border-radius: 50%;
+            color: #fff;
+            padding: 10px;
+        }
+
+        .btn-primary {
+            background-color: #4e73df;
+            border-radius: 25px;
+            font-weight: bold;
+            padding: 15px;
+            width: 100%;
+            font-size: 1.1em;
+            letter-spacing: 1px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #2e59d9;
+            transform: scale(1.05);
+        }
+
+        .text-center {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .text-center a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .text-center a:hover {
+            color: #4e73df;
+        }
+
+        .register-box p {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #ddd;
+        }
+
+        /* Focus Animation */
+        .form-control {
+            animation: pulse 1s infinite;
+        }
+
+       
+    </style>
 </head>
 <body class="hold-transition register-page">
     <div class="register-box">
@@ -77,17 +215,14 @@
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary btn-block">Register</button>
                         </div>
-                        <!-- /.col -->
                     </div>
                 </form>
 
                 <a asp-controller="Account" asp-action="Login" class="text-center">I already have a membership</a>
             </div>
-            <!-- /.form-box -->
-        </div><!-- /.card -->
+        </div>
     </div>
-    <!-- /.register-box -->
-    <!-- AdminLTE JS -->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/js/adminlte.min.js"></script>
 </body>
 </html>

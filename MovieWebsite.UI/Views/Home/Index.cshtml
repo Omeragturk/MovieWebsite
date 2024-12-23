@@ -79,18 +79,18 @@
         <div class="row row-cols-1 row-cols-md-3 g-4">
             @foreach (var movie in Model)
             {
-                <div class="col d-flex justify-content-center">
-                    <a href="@Url.Action("GetFilmDetails", "Home", new { id = movie.Id })">
-                        <div class="movie">
-                            <div class="movie-image">
-                                <img src="@movie.ImagePath" alt="@movie.Title">
-                                <div class="overlay">
-                                    <span class="name">@movie.Title</span>
-                                </div>
+                <a href="@Url.Action("GetFilmDetails", "Home", new { id = movie.Id })"
+                   class="film-link"
+                   data-film-id="@movie.Id">
+                    <div class="movie">
+                        <div class="movie-image">
+                            <img src="@movie.ImagePath" alt="@movie.Title">
+                            <div class="overlay">
+                                <span class="name">@movie.Title</span>
                             </div>
                         </div>
-                    </a>
-                </div>
+                    </div>
+                </a>
             }
         </div>
     }
