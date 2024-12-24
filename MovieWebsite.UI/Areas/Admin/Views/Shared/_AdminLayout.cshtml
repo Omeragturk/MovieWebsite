@@ -13,7 +13,7 @@
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/moviehunter/css/style.css" />
-    <link rel="stylesheet" href="~/moviehunter/css/responsive.css" />
+    
     <link rel="stylesheet" href="~/moviehunter/css/ie6.css" />
 
     <script src="https://kit.fontawesome.com/8e1b0b6f3d.js" crossorigin="anonymous"></script>
@@ -46,7 +46,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Genre" asp-action="Index">
+                    <a class="nav-link" asp-area="Admin" asp-controller="Genre" asp-action="ListGenres">
                         <div class="sb-nav-link-icon"><i class="fa-solid fa-film"></i></div>
                         Genre
                     </a>
@@ -54,13 +54,13 @@
                @if(User.Identity.IsAuthenticated)
                 {
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="UserFilmLike" asp-action="LikedFilms">
+                        <a class="nav-link" asp-area="Admin" asp-controller="UserFilmLike" asp-action="LikedFilms">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-cart-shopping"></i></div>
                             User Film Likes
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" asp-area="" asp-controller="UserFilmLike" asp-action="DislikedFilms">
+                        <a class="nav-link" asp-area="Admin" asp-controller="UserFilmLike" asp-action="DislikedFilms">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-cart-shopping"></i></div>
                             User Film Dislikes
                         </a>
@@ -92,9 +92,9 @@
             </main>
         </div>
     </div>
-    <footer class="py-4 bg-light mt-auto">
-        <div class="container-fluid px-4">
-            <div class="d-flex align-items-center justify-content-between small">
+    <footer >
+        <div >
+            <div">
                 <div class="text-muted">Copyright &copy; Omer</div>
             </div>
         </div>

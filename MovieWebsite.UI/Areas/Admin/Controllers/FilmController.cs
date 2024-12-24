@@ -82,23 +82,27 @@ namespace MovieWebsite.UI.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(UpdateFilmDto filmDto)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 ViewBag.Genres = new SelectList(await _genreService.GetGenres(), "Id", "Name", filmDto.GenreId);
                 return View(filmDto);
             }
             else
             {
+                if(filmDto.UpLoadPath != null)
+                {
+                    filmDto.ImagePath = await _filmService.SaveFile(filmDto.UpLoadPath);
+                }
                 await _filmService.UpdateFilm(filmDto);
                 TempData["Success"] = "Film updated successfully.";
                 return RedirectToAction(nameof(Index));
             }
-
+           
         }
 
 
 
-        
+
         public async Task<IActionResult> Delete(int id)
         {
             await _filmService.DeleteFilmAsync(id);

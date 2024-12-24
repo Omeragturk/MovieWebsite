@@ -42,7 +42,7 @@ namespace MovieWebsite.Application.Models.DTOs.UserDtos
 
 
         [PictureFileExtensionAttiribute(ErrorMessage = "Allowed extensions are jpg, jpeg, png")]
-        public IFormFile UploadPath { get; set; }
+        public IFormFile? UploadPath { get; set; }
         public DateTime UpdateDate => DateTime.Now;
         public Status Status => Status.Modified;
         

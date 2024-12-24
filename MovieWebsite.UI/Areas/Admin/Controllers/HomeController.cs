@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MovieWebsite.Application.Models.DTOs.UserDtos;
 using MovieWebsite.Application.Services.UserServices;
 
 namespace MovieWebsite.UI.Areas.Admin.Controllers

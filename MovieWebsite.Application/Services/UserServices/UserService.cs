@@ -121,8 +121,8 @@ namespace MovieWebsite.Application.Services.UserServices
                 using var image = Image.Load(model.UploadPath.OpenReadStream());
                 image.Mutate(x => x.Resize(600, 560));
                 Guid guid = Guid.NewGuid();
-                image.Save($"wwwroot/images/UsersImages/{guid}.jpg");
-                user.ImagePath = $"/images/UsersImages/{guid}.jpg";
+                image.Save($"wwwroot/images/{guid}.jpg");
+                user.ImagePath = $"/images/{guid}.jpg";
 
                 await _userRepository.Update(user);
             }

@@ -83,9 +83,12 @@ namespace MovieWebsite.UI.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> Details(int id)
+       
+        public async Task<IActionResult> ListGenres()
         {
-            return View(await _genreService.GetById(id));
+            var genres = await _genreService.GetGenres();
+            return View(genres);
         }
+        
     }
 }
