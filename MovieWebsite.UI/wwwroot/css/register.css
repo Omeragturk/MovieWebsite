@@ -1,111 +1,83 @@
 ﻿body {
-    background-image: url('https://miro.medium.com/v2/resize:fit:1200/1*AcXHo7VoO7rh17rWrCOpUg.png');
-    background-size: cover;
-    background-position: center;
-    font-family: 'Roboto', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     margin: 0;
-}
-
-.form-container {
-    background-color: rgba(0, 0, 0, 0.7);
+    height: 100vh;
+    background: url('https://images.hdqwalls.com/wallpapers/bthumb/joker-2019-movie-4k-g0.jpg') no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
     color: #fff;
+}
+
+.register-card {
+    background: rgba(0, 0, 0, 0.7);
     border-radius: 20px;
-    padding: 40px;
-    width: 100%;
-    max-width: 450px;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(10px);
-    transition: all 0.3s ease-in-out;
-}
-
-    .form-container:hover {
-        box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.5);
-    }
-
-.form-header {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    padding: 40px;
+    max-width: 400px;
+    width: 100%;
     text-align: center;
-    font-size: 2em;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    animation: fade-in 1.2s ease-in-out;
 }
 
-.input-group {
+    .register-card h2 {
+        font-weight: bold;
+        color: #ff4a3c;
+    }
+
+    .register-card p {
+        color: #d1d1d1;
+        margin-bottom: 20px;
+    }
+
+.form-control {
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: none;
+    height: 50px;
+    padding-left: 50px;
+    transition: all 0.3s ease-in-out;
     margin-bottom: 20px;
-    position: relative;
 }
 
-    .input-group input {
-        width: 100%;
-        padding: 15px;
-        border-radius: 30px;
-        font-size: 1em;
-        border: 2px solid #ddd;
-        background-color: rgba(255, 255, 255, 0.9);
-        color: #333;
-        transition: border 0.3s ease, box-shadow 0.3s ease;
+    .form-control:focus {
+        outline: none;
+        box-shadow: 0 0 15px rgba(255, 111, 97, 0.7);
+        background: rgba(255, 255, 255, 0.2);
     }
 
-        .input-group input:focus {
-            border-color: #4e73df;
-            box-shadow: 0 0 8px rgba(78, 115, 223, 0.5);
-        }
-
-    .input-group .icon {
-        position: absolute;
-        top: 50%;
-        left: 15px;
-        transform: translateY(-50%);
-        color: #999;
-    }
-
-    .input-group input::placeholder {
-        color: #aaa;
-    }
+.input-group-text {
+    background: transparent;
+    border: none;
+    color: #ff6f61;
+    font-size: 1.2rem;
+}
 
 .btn-primary {
-    background-color: #4e73df;
-    border-radius: 30px;
-    padding: 15px;
+    border-radius: 50px;
+    background: linear-gradient(45deg, #ff6f61, #ff4a3c);
+    border: none;
+    height: 50px;
+    font-size: 1rem;
     font-weight: bold;
-    font-size: 1.2em;
-    width: 100%;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: all 0.3s;
 }
 
     .btn-primary:hover {
-        background-color: #2e59d9;
-        transform: scale(1.05);
+        background: linear-gradient(45deg, #ff4a3c, #ff6f61);
+        box-shadow: 0 0 15px rgba(255, 111, 97, 0.7);
     }
 
-.footer-text {
-    text-align: center;
-    font-size: 0.9em;
-    margin-top: 15px;
-    color: #ddd;
-}
-
-    .footer-text a {
-        color: #fff;
-        text-decoration: none;
-        font-weight: bold;
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
     }
 
-        .footer-text a:hover {
-            color: #4e73df;
-        }
-
-@media (max-width: 480px) {
-    .form-container {
-        padding: 30px;
-    }
-
-    .form-header {
-        font-size: 1.8em;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
-

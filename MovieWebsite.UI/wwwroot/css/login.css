@@ -1,1 +1,105 @@
-﻿
+﻿/* General Styles */
+body {
+    margin: 0;
+    height: 100vh;
+    background: url('https://images.hdqwalls.com/wallpapers/bthumb/joker-2019-movie-4k-g0.jpg') no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+}
+
+/* Login Card */
+.login-card {
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    padding: 40px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    animation: fade-in 1.2s ease-in-out;
+}
+
+    .login-card h2 {
+        font-weight: bold;
+        color: #ff4a3c;
+    }
+
+    .login-card p {
+        color: #d1d1d1;
+        margin-bottom: 20px;
+    }
+
+/* Input Fields */
+.form-control {
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: none;
+    height: 50px;
+    padding-left: 50px;
+    transition: all 0.3s ease-in-out;
+    margin-bottom: 20px;
+}
+
+    .form-control:focus {
+        outline: none;
+        box-shadow: 0 0 15px rgba(255, 111, 97, 0.7);
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+.input-group-text {
+    background: transparent;
+    border: none;
+    color: #ff6f61;
+    font-size: 1.2rem;
+}
+
+/* Buttons */
+.btn-primary {
+    border-radius: 50px;
+    background: linear-gradient(45deg, #ff6f61, #ff4a3c);
+    border: none;
+    height: 50px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+    .btn-primary:hover {
+        background: linear-gradient(45deg, #ff4a3c, #ff6f61);
+        box-shadow: 0 0 15px rgba(255, 111, 97, 0.7);
+    }
+
+/* Social Login */
+.social-login .btn {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 1.5rem;
+    transition: all 0.3s;
+}
+
+    .social-login .btn:hover {
+        background: #ff6f61;
+        color: #fff;
+        transform: scale(1.2);
+    }
+
+/* Animations */
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

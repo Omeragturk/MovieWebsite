@@ -3,20 +3,11 @@
 }
 @model MovieWebsite.Application.Models.DTOs.UserDtos.RegisterDto
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register | Film Site Adı</title>
-    <!-- AdminLTE CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/css/adminlte.min.css">
-    <!-- Custom CSS -->
+
     <link rel="stylesheet" href="~/css/register.css">
     <style>
-        /* Background Image with Darkening Overlay */
         body {
-            background-image: url('https://miro.medium.com/v2/resize:fit:1200/1*AcXHo7VoO7rh17rWrCOpUg.png');
+        background-image: url('https://c4.wallpaperflare.com/wallpaper/862/449/162/jack-reacher-star-wars-interstellar-movie-john-wick-wallpaper-preview.jpg');
             background-size: cover;
             background-position: center;
             height: 100vh;
@@ -27,60 +18,48 @@
             margin: 0;
         }
 
-        /* Dark overlay for the background */
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5); /* Darker overlay */
-            z-index: -1; /* Placed behind content */
-        }
+            body::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.6);
+                z-index: -1;
+            }
 
-        /* Styling the Registration Box */
         .register-box {
-            background: rgba(0, 0, 0, 0.7); /* Semi-transparent dark background */
+            background: rgba(255, 255, 255, 0.1);
             padding: 40px;
             border-radius: 20px;
             width: 100%;
             max-width: 450px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px); /* Smooth blur effect on the background */
+            backdrop-filter: blur(10px);
             transition: all 0.3s ease-in-out;
         }
 
-        .register-box:hover {
-            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5);
-        }
+            .register-box:hover {
+                box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5);
+            }
 
-        .register-logo a {
-            font-size: 1.8em; /* Reduced font size */
-            font-weight: bold;
-            color: #fff;
-            text-align: center;
+        .register-logo img {
+            width: 150px;
             display: block;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-        }
-
-        .card-body {
-            background-color: transparent;
-            padding: 30px;
+            margin: 0 auto 20px auto;
         }
 
         .login-box-msg {
             text-align: center;
-            margin-bottom: 30px;
-            font-size: 1.4em;
+            margin-bottom: 20px;
+            font-size: 1.5em;
             font-weight: bold;
-            color: #ccc;
+            color: #f0f0f0;
         }
 
-        /* Form Controls Styling */
         .input-group {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .form-control {
@@ -93,18 +72,11 @@
             transition: all 0.3s ease;
         }
 
-        .form-control:focus {
-            background-color: #fff;
-            border-color: #4e73df;
-            box-shadow: 0 0 10px rgba(78, 115, 223, 0.5);
-        }
-
-        .input-group-text {
-            background-color: #4e73df;
-            border-radius: 50%;
-            color: #fff;
-            padding: 10px;
-        }
+            .form-control:focus {
+                background-color: #fff;
+                border-color: #4e73df;
+                box-shadow: 0 0 10px rgba(78, 115, 223, 0.5);
+            }
 
         .btn-primary {
             background-color: #4e73df;
@@ -112,50 +84,34 @@
             font-weight: bold;
             padding: 15px;
             width: 100%;
-            font-size: 1.1em;
-            letter-spacing: 1px;
-            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
         }
 
-        .btn-primary:hover {
-            background-color: #2e59d9;
-            transform: scale(1.05);
-        }
+            .btn-primary:hover {
+                background-color: #375ab0;
+            }
 
         .text-center {
             text-align: center;
             margin-top: 20px;
         }
 
-        .text-center a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
+            .text-center a {
+                color: #fff;
+                text-decoration: none;
+                font-weight: bold;
+            }
 
-        .text-center a:hover {
-            color: #4e73df;
-        }
-
-        .register-box p {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #ddd;
-        }
-
-        /* Focus Animation */
-        .form-control {
-            animation: pulse 1s infinite;
-        }
-
-       
+                .text-center a:hover {
+                    color: #4e73df;
+                }
     </style>
-</head>
-<body class="hold-transition register-page">
+
+
     <div class="register-box">
         <div class="register-logo">
-            <img src="/moviehunter/css/images/logo.gif"/>
+            <img src="/moviehunter/css/images/logo.gif" alt="Logo">
         </div>
 
         <div class="card">
@@ -165,51 +121,21 @@
                 <form asp-controller="Account" asp-action="Register" method="post">
                     <div class="input-group mb-3">
                         <input asp-for="FirstName" type="text" class="form-control" placeholder="First name" required>
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-user"></span>
-                            </div>
-                        </div>
                     </div>
                     <div class="input-group mb-3">
                         <input asp-for="LastName" type="text" class="form-control" placeholder="Last name" required>
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-user"></span>
-                            </div>
-                        </div>
                     </div>
                     <div class="input-group mb-3">
                         <input asp-for="UserName" type="text" class="form-control" placeholder="Username" required>
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-user"></span>
-                            </div>
-                        </div>
                     </div>
                     <div class="input-group mb-3">
                         <input asp-for="Email" type="email" class="form-control" placeholder="Email" required>
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
-                            </div>
-                        </div>
                     </div>
                     <div class="input-group mb-3">
                         <input asp-for="Password" type="password" class="form-control" placeholder="Password" required>
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Retype password" required>
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
+                        <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirm Password" required>
                     </div>
                     <div class="row">
                         <div class="col-12">
@@ -218,11 +144,10 @@
                     </div>
                 </form>
 
-                <a asp-controller="Account" asp-action="Login" class="text-center">I already have a membership</a>
+                <div class="text-center">
+                    <a asp-controller="Account" asp-action="Login">Already have a membership? Login here.</a>
+                </div>
             </div>
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/js/adminlte.min.js"></script>
-</body>
-</html>
