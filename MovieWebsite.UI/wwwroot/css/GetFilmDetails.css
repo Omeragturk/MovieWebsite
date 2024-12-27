@@ -87,77 +87,72 @@
             background-color: #0056b3;
         }
 
-.like-btn, .dislike-btn {
-    font-size: 1.2rem;
+
+
+/* Button styling */
+.btn.like-btn {
+    background: linear-gradient(120deg, #ff7e5f, #feb47b);
     border: none;
-    transition: all 0.3s ease;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+    color: white;
+    transition: transform 0.2s ease-in-out, box-shadow 0.3s ease;
+}
+
+.btn.like-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 4px 15px rgba(255, 126, 95, 0.5);
+}
+
+.btn.dislike-btn {
+    background: linear-gradient(120deg, #43cea2, #185a9d);
+    border: none;
+    color: white;
+    transition: transform 0.2s ease-in-out, box-shadow 0.3s ease;
+}
+
+    .btn.dislike-btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0px 4px 15px rgba(67, 206, 162, 0.5);
+    }
+
+/* Loader styling */
+.film-reel {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
+    position: relative;
+    width: 100px;
+    height: 100px;
 }
 
-.like-btn {
-    background-color: #28a745; /* Yeşil */
-}
-
-    .like-btn:hover {
-        background-color: #218838;
-        transform: scale(1.1);
-    }
-
-.dislike-btn {
-    background-color: #dc3545; /* Kırmızı */
-}
-
-    .dislike-btn:hover {
-        background-color: #c82333;
-        transform: scale(1.1);
-    }
-
-.active-like {
-    background-color: #218838;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-}
-
-.active-dislike {
-    background-color: #c82333;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-}
-.buttons {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 15px;
-}
-
-.like-btn,
-.dislike-btn {
-    width: 50px;
-    height: 50px;
-    border: none;
+.reel-circle {
+    width: 20px;
+    height: 20px;
+    background-color: #ff4757;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    background-color: #555;
-    cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    animation: spin 2s linear infinite;
+    position: absolute;
 }
 
-.like-btn.active-like {
-    background-color: #28a745;
+    .reel-circle:nth-child(2) {
+        background-color: #1e90ff;
+        animation-delay: -1s;
+    }
+
+.reel-strip {
+    width: 100%;
+    height: 10px;
+    background-color: #2f3542;
+    position: absolute;
+    transform: rotate(45deg);
 }
 
-.dislike-btn.active-dislike {
-    background-color: #dc3545;
+@keyframes spin {
+    0% {
+        transform: rotate(0deg) translateX(30px);
+    }
+
+    100% {
+        transform: rotate(360deg) translateX(30px);
+    }
 }
 
-.like-btn:hover,
-.dislike-btn:hover {
-    filter: brightness(1.2);
-}
