@@ -1,0 +1,25 @@
+﻿
+@using MovieWebsite.Application.Models.VMs.ReviewVMs
+@model ReviewVM
+
+
+<h1>Review Details</h1>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Film: @Model.Film.Title</h5>
+        <h6 class="card-subtitle mb-2 text-muted">User: @Model.User.UserName</h6>
+        <p class="card-text">
+            <strong>Rating:</strong> @Model.Rating <br />
+            <strong>Text:</strong> @Model.Text
+        </p>
+        <p>
+            <strong>Created:</strong> @Model.CreateDate.ToString("yyyy-MM-dd") <br />
+            @if (Model.UpdateDate.HasValue)
+            {
+                <strong>Updated:</strong> @Model.UpdateDate.Value.ToString("yyyy-MM-dd")
+            }
+        </p>
+        <a href="@Url.Action("Index", "Review")" class="btn btn-primary">Back to List</a>
+    </div>
+</div>

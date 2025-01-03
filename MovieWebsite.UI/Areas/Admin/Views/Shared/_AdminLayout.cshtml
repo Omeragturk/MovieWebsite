@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="~/moviehunter/css/style.css" />
     
     <link rel="stylesheet" href="~/moviehunter/css/ie6.css" />
-
+   
     <script src="https://kit.fontawesome.com/8e1b0b6f3d.js" crossorigin="anonymous"></script>
     <script src="~/moviehunter/js/jquery-1.4.2.min.js"></script>
     <script src="~/moviehunter/js/jquery.jcarousel.pack.js"></script>
@@ -76,7 +76,12 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" asp-area="Admin" asp-controller="Home" asp-action="Index">Admin Panel</a></li>
-                        <li><a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Edit" asp-route-userName="@User.Identity.Name">Edit</a></li>
+                        <li>
+                            <a class="dropdown-item" asp-controller="Account" asp-action="Edit" asp-route-userName="@User.Identity.Name">
+                                Edit Profile
+                            </a>
+                        </li>
+
                         <li><hr class="dropdown-divider" /></li>
                         @if (User.IsInRole("Admin"))
                         {

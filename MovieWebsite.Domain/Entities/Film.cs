@@ -23,7 +23,9 @@ namespace MovieWebsite.Domain.Entities
         public Genre Genre { get; set; }
         public int GenreId { get; set; }
 
-        public ICollection<UserFilmLike> UserFilmLikes { get; set; }
+        public ICollection<Review> Reviews { get; set; }
+
+        public ICollection<UserFilmLike> UserFilmLikes { get; set; }       
         public DateTime CreateDate { get; set; } = DateTime.Now;
         public DateTime? UpdateDate { get ; set ; }
         public DateTime? DeleteDate { get ; set ; }

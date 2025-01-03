@@ -16,8 +16,8 @@ namespace ETicaretPlatformu.Application.Models.DTOs.CatagoryDto
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Category name must be a character!")]
         public string Name { get; set; }
         public string Description { get; set; }
-        public DateTime UpdateDate => DateTime.Now;
-        public Status Status => Status.Modified;
+        
+        
 
     }
 }

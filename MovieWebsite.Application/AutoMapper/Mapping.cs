@@ -2,10 +2,12 @@
 using ETicaretPlatformu.Application.Models.DTOs.CatagoryDto;
 using MovieWebsite.Application.Models.DTOs.FilmDTos;
 using MovieWebsite.Application.Models.DTOs.GenreDto;
+using MovieWebsite.Application.Models.DTOs.ReviewDtos;
 using MovieWebsite.Application.Models.DTOs.UserDtos;
 using MovieWebsite.Application.Models.DTOs.UserFilmLikeDTos;
 using MovieWebsite.Application.Models.VMs.FilmVMs;
 using MovieWebsite.Application.Models.VMs.GenreVM;
+using MovieWebsite.Application.Models.VMs.ReviewVMs;
 using MovieWebsite.Application.Models.VMs.UserFilmLikeViewModels;
 using MovieWebsite.Domain.Entities;
 using System;
@@ -36,7 +38,10 @@ namespace MovieWebsite.Application.AutoMapper
             CreateMap<UserFilmLike,UserFilmLikeVM>().ReverseMap();
             CreateMap<Film, UserFilmLikeVM>().ReverseMap();
             CreateMap<FilmVM, UpdateFilmDto>().ReverseMap();
-
+            CreateMap<Review, CreateReviewDto>().ReverseMap();
+            CreateMap<Review, UpdateReviewDto>().ReverseMap();            
+            CreateMap<Review, ReviewVM>().ReverseMap();
+            CreateMap<CreateReviewDto,ReviewVM>().ReverseMap();
 
 
         }

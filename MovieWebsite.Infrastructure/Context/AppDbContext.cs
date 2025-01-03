@@ -26,6 +26,7 @@ namespace MovieWebsite.Infrastructure.Context
         public DbSet<Film> Films { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<UserFilmLike> UserFilmLikes { get; set; }
+        public DbSet<Review> Reviews { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<IdentityRole>().HasData(

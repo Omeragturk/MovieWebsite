@@ -1,0 +1,27 @@
+﻿@model List<ReviewVM>
+
+<h1>User Reviews</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Film</th>
+            <th>Rating</th>
+            <th>Text</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var review in Model)
+        {
+            <tr>
+                <td>@review.Id</td>
+                <td>@review.Film.Title</td>
+                <td>@review.Rating</td>
+                <td>@review.Text</td>
+                <td>@review.CreateDate.ToString("yyyy-MM-dd")</td>
+            </tr>
+        }
+    </tbody>
+</table>

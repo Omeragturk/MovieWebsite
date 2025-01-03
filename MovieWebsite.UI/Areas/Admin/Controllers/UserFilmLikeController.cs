@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using MovieWebsite.Application.Models.VMs.UserFilmLikeViewModels;
 using MovieWebsite.Application.Services.UserFilmLikeServices;
 using MovieWebsite.Domain.Entities;
 
 namespace MovieWebsite.UI.Areas.Admin.Controllers
 {
+
     [Area("Admin")]
     public class UserFilmLikeController : Controller
     {
@@ -108,6 +111,6 @@ namespace MovieWebsite.UI.Areas.Admin.Controllers
             await _userFilmLikeService.RemoveDislikeAsync(userId, filmId);
             TempData["Success"] = "Film beğenmeme işlemi kaldırıldı.";
             return RedirectToAction("DislikedFilms");
-        }
+        }        
     }
 }

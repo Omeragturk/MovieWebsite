@@ -1,0 +1,35 @@
+﻿@model MovieWebsite.Application.Models.DTOs.ReviewDtos.UpdateReviewDto
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+<h2>Edit Review</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="FilmId">Select Film</label>
+        <select asp-for="FilmId" class="form-control" asp-items="ViewBag.Films"></select>
+        <span asp-validation-for="FilmId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Text">Your Review</label>
+        <textarea asp-for="Text" class="form-control" rows="5"></textarea>
+        <span asp-validation-for="Text" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Rating">Rating</label>
+        <input asp-for="Rating" type="number" class="form-control" min="1" max="10" />
+        <span asp-validation-for="Rating" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

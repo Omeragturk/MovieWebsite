@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MovieWebsite.Infrastructure.Migrations
 {
-    public partial class init : Migration
+    public partial class inits : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -206,6 +206,38 @@ namespace MovieWebsite.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Reviews",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Rating = table.Column<int>(type: "int", nullable: false),
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FilmId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeleteDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reviews", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reviews_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Reviews_Films_FilmId",
+                        column: x => x.FilmId,
+                        principalTable: "Films",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserFilmLikes",
                 columns: table => new
                 {
@@ -264,18 +296,18 @@ namespace MovieWebsite.Infrastructure.Migrations
                 columns: new[] { "Id", "CreateDate", "DeleteDate", "Description", "GenreId", "ImagePath", "Status", "Title", "UpdateDate" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5348), null, "The leader of a drug cartel busts out of a courthouse and speeds to the Mexican border, where the only thing in his path is a sheriff and his inexperienced staff.", 1, "/moviehunter/css/images/movie1.jpg", 0, "The Last Stand", null },
-                    { 2, new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5350), null, " Peter Parker is beset with troubles in his failing personal life as he battles a brilliant scientist named Doctor Otto Octavius.", 1, "/moviehunter/css/images/movie2.jpg", 0, "Spider Man 2", null },
-                    { 3, new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5352), null, "A strange black entity from another world bonds with Peter Parker and causes inner turmoil as he contends with new villains, temptations, and revenge.", 1, "/moviehunter/css/images/movie3.jpg", 0, "Spider Man 3", null },
-                    { 4, new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5353), null, "A dramatization of the July 20, 1944 assassination and political coup plot by desperate renegade German Army officers", 3, "/moviehunter/css/images/movie4.jpg", 0, "Valkiyrie", null },
-                    { 5, new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5355), null, " A former Roman General sets out to exact vengeance against the corrupt emperor who murdered his family and sent him", 3, "/moviehunter/css/images/movie5.jpg", 0, "Gladiator", null },
-                    { 6, new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5356), null, " Set during the Ice Age, a sabertooth tiger, a sloth, and a wooly mammoth find a lost human infant, and they try to return him to his tribe.", 2, "/moviehunter/css/images/movie6.jpg", 0, "Ice Age", null },
-                    { 7, new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5358), null, "An ancient struggle between two Cyber", 6, "/moviehunter/css/images/movie7.jpg", 0, "Transformers", null },
-                    { 8, new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5360), null, " In 1962, the United States government enlists the help of Mutants with superhuman abilities to stop a malicious dictator who is determined to start World War III.", 6, "/moviehunter/css/images/movie8.jpg", 0, "Magneto", null },
-                    { 9, new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5361), null, " The Dragon Warrior has to clash against the savage Tai Lung as China's fate hangs in the balance: However, the Dragon Warrior mantle is supposedly mistaken to be bestowed upon an obese panda who is a tyro in martial arts.", 2, "/moviehunter/css/images/movie9.jpg", 0, "Kung Fu Panda", null },
-                    { 10, new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5363), null, " Jerry and Rachel are two strangers thrown together by a mysterious phone call from a woman they have never met. Threatening their lives and family, she pushes Jerry and Rachel into a series of increasingly dangerous situations, using the technology of everyday life to track and control their every move.", 1, "/moviehunter/css/images/movie10.jpg", 0, "Eagle Eye", null },
-                    { 11, new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5364), null, "Harvard symbologist Robert Langdon works with a nuclear physicist to solve a murder and prevent a terrorist act against the Vatican during one of the significant events within the church.", 2, "/moviehunter/css/images/movie12.jpg", 0, "Angels and Demons", null },
-                    { 12, new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5366), null, "In rural Alabama, two couples find themselves in a fight for survival. Running from a maniac (The Tin Man) bent on killing them, they flee deep into the woods and seek refuge in a house.", 3, "/moviehunter/css/images/movie13.jpg", 0, "House", null }
+                    { 1, new DateTime(2025, 1, 2, 19, 19, 34, 456, DateTimeKind.Local).AddTicks(5797), null, "The leader of a drug cartel busts out of a courthouse and speeds to the Mexican border, where the only thing in his path is a sheriff and his inexperienced staff.", 1, "/moviehunter/css/images/movie1.jpg", 0, "The Last Stand", null },
+                    { 2, new DateTime(2025, 1, 2, 19, 19, 34, 456, DateTimeKind.Local).AddTicks(5799), null, " Peter Parker is beset with troubles in his failing personal life as he battles a brilliant scientist named Doctor Otto Octavius.", 1, "/moviehunter/css/images/movie2.jpg", 0, "Spider Man 2", null },
+                    { 3, new DateTime(2025, 1, 2, 19, 19, 34, 456, DateTimeKind.Local).AddTicks(5801), null, "A strange black entity from another world bonds with Peter Parker and causes inner turmoil as he contends with new villains, temptations, and revenge.", 1, "/moviehunter/css/images/movie3.jpg", 0, "Spider Man 3", null },
+                    { 4, new DateTime(2025, 1, 2, 19, 19, 34, 456, DateTimeKind.Local).AddTicks(5803), null, "A dramatization of the July 20, 1944 assassination and political coup plot by desperate renegade German Army officers", 3, "/moviehunter/css/images/movie4.jpg", 0, "Valkiyrie", null },
+                    { 5, new DateTime(2025, 1, 2, 19, 19, 34, 456, DateTimeKind.Local).AddTicks(5804), null, " A former Roman General sets out to exact vengeance against the corrupt emperor who murdered his family and sent him", 3, "/moviehunter/css/images/movie5.jpg", 0, "Gladiator", null },
+                    { 6, new DateTime(2025, 1, 2, 19, 19, 34, 456, DateTimeKind.Local).AddTicks(5806), null, " Set during the Ice Age, a sabertooth tiger, a sloth, and a wooly mammoth find a lost human infant, and they try to return him to his tribe.", 2, "/moviehunter/css/images/movie6.jpg", 0, "Ice Age", null },
+                    { 7, new DateTime(2025, 1, 2, 19, 19, 34, 456, DateTimeKind.Local).AddTicks(5807), null, "An ancient struggle between two Cyber", 6, "/moviehunter/css/images/movie7.jpg", 0, "Transformers", null },
+                    { 8, new DateTime(2025, 1, 2, 19, 19, 34, 456, DateTimeKind.Local).AddTicks(5809), null, " In 1962, the United States government enlists the help of Mutants with superhuman abilities to stop a malicious dictator who is determined to start World War III.", 6, "/moviehunter/css/images/movie8.jpg", 0, "Magneto", null },
+                    { 9, new DateTime(2025, 1, 2, 19, 19, 34, 456, DateTimeKind.Local).AddTicks(5810), null, " The Dragon Warrior has to clash against the savage Tai Lung as China's fate hangs in the balance: However, the Dragon Warrior mantle is supposedly mistaken to be bestowed upon an obese panda who is a tyro in martial arts.", 2, "/moviehunter/css/images/movie9.jpg", 0, "Kung Fu Panda", null },
+                    { 10, new DateTime(2025, 1, 2, 19, 19, 34, 456, DateTimeKind.Local).AddTicks(5812), null, " Jerry and Rachel are two strangers thrown together by a mysterious phone call from a woman they have never met. Threatening their lives and family, she pushes Jerry and Rachel into a series of increasingly dangerous situations, using the technology of everyday life to track and control their every move.", 1, "/moviehunter/css/images/movie10.jpg", 0, "Eagle Eye", null },
+                    { 11, new DateTime(2025, 1, 2, 19, 19, 34, 456, DateTimeKind.Local).AddTicks(5813), null, "Harvard symbologist Robert Langdon works with a nuclear physicist to solve a murder and prevent a terrorist act against the Vatican during one of the significant events within the church.", 2, "/moviehunter/css/images/movie12.jpg", 0, "Angels and Demons", null },
+                    { 12, new DateTime(2025, 1, 2, 19, 19, 34, 456, DateTimeKind.Local).AddTicks(5815), null, "In rural Alabama, two couples find themselves in a fight for survival. Running from a maniac (The Tin Man) bent on killing them, they flee deep into the woods and seek refuge in a house.", 3, "/moviehunter/css/images/movie13.jpg", 0, "House", null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -323,6 +355,16 @@ namespace MovieWebsite.Infrastructure.Migrations
                 column: "GenreId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Reviews_FilmId",
+                table: "Reviews",
+                column: "FilmId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reviews_UserId",
+                table: "Reviews",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserFilmLikes_FilmId",
                 table: "UserFilmLikes",
                 column: "FilmId");
@@ -349,6 +391,9 @@ namespace MovieWebsite.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Reviews");
 
             migrationBuilder.DropTable(
                 name: "UserFilmLikes");

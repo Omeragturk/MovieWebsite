@@ -1,58 +1,61 @@
 ﻿@model MovieWebsite.Application.Models.DTOs.FilmDTos.CreateFilmDTO
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Film";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Create</h1>
+<div class="container py-5">
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white text-center">
+            <h2 class="mb-0">Create New Film</h2>
+            <p class="mb-0">Fill in the details to add a new film to the library</p>
+        </div>
+        <div class="card-body">
+            <form asp-area="Admin" asp-controller="Film" asp-action="Create" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert" style="display:none;"></div>
 
-<h4>CreateFilmDTO</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-area="Admin" asp-controller="Film" asp-action="Create" method="post" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Title" class="form-control" placeholder="Film Title" />
+                    <label asp-for="Title">Film Title</label>
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
+                <div class="form-floating mb-3">
+                    <textarea asp-for="Description" class="form-control" placeholder="Film Description" style="height: 150px;"></textarea>
+                    <label asp-for="Description">Film Description</label>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
+                <div class="mb-3">
+                    <label asp-for="UpLoadPath" class="form-label">Upload Poster</label>
+                    <input asp-for="UpLoadPath" type="file" class="form-control" />
+                    <small class="form-text text-muted">Supported formats: JPG, PNG</small>
+                    <span asp-validation-for="UpLoadPath" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="UpLoadPath" class="control-label"></label>
-                <input asp-for="UpLoadPath" type="file" class="form-control" />
-                <span asp-validation-for="UpLoadPath" class="text-danger"></span>
-            </div>
+                <div class="form-floating mb-3">
+                    <select asp-for="GenreId" class="form-control" asp-items="ViewBag.Genres">
+                        <option value="">Select Genre</option>
+                    </select>
+                    <label asp-for="GenreId">Genre</label>
+                    <span asp-validation-for="GenreId" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="GenreId" class="control-label"></label>
-                <select asp-for="GenreId" class="form-control" asp-items="ViewBag.Genres">
-                    <option value="">Select Genre</option>
-                </select>
-                <span asp-validation-for="GenreId" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="d-flex justify-content-between align-items-center">
+                    <button type="submit" class="btn btn-success px-4">Create</button>
+                    <a asp-controller="Film" asp-area="Admin" asp-action="Index" class="btn btn-secondary">Back to List</a>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-controller="Film" asp-area="Admin" asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+   
+
 }

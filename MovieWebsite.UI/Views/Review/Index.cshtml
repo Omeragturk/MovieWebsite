@@ -1,0 +1,282 @@
+﻿@model List<MovieWebsite.Application.Models.VMs.ReviewVMs.ReviewVM>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+<style>
+    /* General Styles */
+    body {
+        background-color: #f4f4f9;
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #333;
+    }
+
+    .container {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    h1 {
+        color: #333;
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 2.5rem;
+    }
+
+    /* Stars */
+    .stars i {
+        color: #ddd; /* Default color for empty stars */
+        transition: color 0.3s ease;
+    }
+
+    .stars i.filled {
+        color: #FFD700; /* Gold color for filled stars */
+    }
+
+    .stars i:hover {
+        color: #f39c12; /* Hover effect for stars */
+    }
+
+    /* Film Poster */
+    .film-info {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .film-poster {
+        width: 60px;
+        height: 90px;
+        object-fit: cover;
+        margin-right: 15px;
+        border-radius: 8px;
+        transition: transform 0.3s ease;
+    }
+
+    .film-poster:hover {
+        transform: scale(1.05);
+    }
+
+    .film-info div {
+        font-weight: bold;
+        font-size: 1.1rem;
+        color: #2c3e50;
+        padding-left: 10px;
+    }
+
+    /* Sorting Dropdown */
+    select {
+        padding: 8px;
+        font-size: 1rem;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        background-color: #fff;
+        width: 200px;
+        margin-bottom: 30px;
+        transition: all 0.3s ease;
+    }
+
+    select:hover {
+        border-color: #f39c12;
+        cursor: pointer;
+    }
+
+    /* Table Styles */
+    table {
+        width: 100%;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-collapse: collapse;
+        overflow: hidden;
+    }
+
+    th, td {
+        padding: 15px;
+        text-align: center;
+    }
+
+    th {
+        background-color: #f39c12;
+        color: #fff;
+        font-size: 1.2rem;
+    }
+
+    td {
+        font-size: 1rem;
+        background-color: #f9f9f9;
+    }
+
+    tr:hover {
+        background-color: #f1c40f;
+        transform: scale(1.02);
+        transition: all 0.3s ease;
+    }
+
+    /* Buttons */
+    .btn {
+        padding: 8px 15px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-info {
+        background-color: #2980b9;
+        color: #fff;
+    }
+
+    .btn-info:hover {
+        background-color: #3498db;
+    }
+
+    .btn-warning {
+        background-color: #f39c12;
+        color: #fff;
+    }
+
+    .btn-warning:hover {
+        background-color: #f1c40f;
+    }
+
+    .btn-danger {
+        background-color: #e74c3c;
+        color: #fff;
+    }
+
+    .btn-danger:hover {
+        background-color: #c0392b;
+    }
+
+    }
+</style>
+
+@{
+    ViewData["Title"] = "Reviews";
+}
+
+<div class="container">
+    <h1>Film Reviews</h1>
+
+    <!-- Sorting Options -->
+    <div class="mb-4">
+        <select id="sortBy" class="form-control" onchange="sortReviews()">
+            <option value="rating_asc">Rating (Low to High)</option>
+            <option value="rating_desc">Rating (High to Low)</option>
+            <option value="film_asc">Film (A-Z)</option>
+            <option value="film_desc">Film (Z-A)</option>
+        </select>
+    </div>
+
+    <!-- Reviews Table -->
+    <table class="table table-striped" id="reviewsTable">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Film</th>
+                <th>User</th>
+                <th>Rating</th>
+                <th>Review Text</th>
+                <th>Created On</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var review in Model)
+                {
+                    <tr data-id="@review.Id" data-title="@review.Film.Title" data-rating="@review.Rating" data-created="@review.CreateDate">
+                        <td>@review.Id</td>
+                        <td>
+                            <div class="film-info">
+                                <img src="@review.Film.ImagePath" alt="Film Poster" class="film-poster" />
+                                <div>@review.Film.Title</div>
+                            </div>
+                        </td>
+                        <td>@review.User.UserName</td>
+                        <td>
+                            <div class="stars">
+                                @for (int i = 0; i < 5; i++)
+                                {
+                                    if (i < review.Rating)
+                                    {
+                                        <i class="fa fa-star filled"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa fa-star"></i>
+                                    }
+                                }
+                            </div>
+                        </td>
+                        <td>@review.Text</td>
+                        <td>@review.CreateDate.ToShortDateString()</td>
+                        <td>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                if (User.IsInRole("Admin") || User.Identity.Name == review.User.UserName)
+                                {
+                                    <a href="@Url.Action("Details", "Review", new { id = review.Id })" class="btn btn-info btn-sm">Details</a>
+                                    <a href="@Url.Action("Edit", "Review", new { id = review.Id })" class="btn btn-warning btn-sm">Edit</a>
+                                    <a href="@Url.Action("Delete", "Review", new { id = review.Id })" class="btn btn-danger btn-sm">Delete</a>
+                                }
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="7" class="text-center">No reviews available.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function sortReviews() {
+        // Get the selected value from the sorting dropdown
+        var sortBy = document.getElementById("sortBy").value;
+        var rows = Array.from(document.querySelectorAll("#reviewsTable tbody tr"));
+
+        // Sorting logic based on the selected option
+        rows.sort(function(a, b) {
+            var aValue, bValue;
+
+            switch (sortBy) {
+                case "rating_asc":
+                    aValue = parseInt(a.getAttribute("data-rating"));
+                    bValue = parseInt(b.getAttribute("data-rating"));
+                    return aValue - bValue;
+
+                case "rating_desc":
+                    aValue = parseInt(a.getAttribute("data-rating"));
+                    bValue = parseInt(b.getAttribute("data-rating"));
+                    return bValue - aValue;
+
+                case "film_asc":
+                    aValue = a.getAttribute("data-title").toLowerCase();
+                    bValue = b.getAttribute("data-title").toLowerCase();
+                    return aValue.localeCompare(bValue);
+
+                case "film_desc":
+                    aValue = a.getAttribute("data-title").toLowerCase();
+                    bValue = b.getAttribute("data-title").toLowerCase();
+                    return bValue.localeCompare(aValue);
+
+                default:
+                    return 0;
+            }
+        });
+
+        // Append the sorted rows back to the table body
+        var tbody = document.querySelector("#reviewsTable tbody");
+        rows.forEach(function(row) {
+            tbody.appendChild(row);
+        });
+    }
+</script>

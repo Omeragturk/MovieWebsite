@@ -1,0 +1,95 @@
+﻿@model ETicaretPlatformu.Application.Models.DTOs.CatagoryDto.UpdateGenreDto
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center my-4 text-primary">Edit Genre</h1>
+
+<div class="card shadow-lg p-4 mb-5 bg-light rounded">
+    <div class="card-body">
+        <form asp-action="Edit" method="post" id="editGenreForm">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+            <input type="hidden" asp-for="Id" class="form-control" />
+
+            <div class="form-group mb-3">
+                <label asp-for="Name" class="form-label fw-bold">Name</label>
+                <input asp-for="Name" class="form-control" placeholder="Enter genre name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Description" class="form-label fw-bold">Description</label>
+                <textarea asp-for="Description" class="form-control" rows="3" placeholder="Enter genre description"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <a asp-action="Index" class="btn btn-outline-secondary">Back to List</a>
+                <button type="submit" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#notificationModal">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Notification Modal -->
+<div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="notificationModalLabel">Action Status</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <p id="modalMessage" class="fs-5">Processing your request...</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('editGenreForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const form = event.target;
+
+            fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+            })
+                .then(response => {
+                    const modal = new bootstrap.Modal(document.getElementById('notificationModal'));
+                    if (response.ok) {
+                        document.getElementById('modalMessage').textContent = 'Genre updated successfully!';
+                        modal.show();
+                        setTimeout(() => {
+                            modal.hide();
+                            window.location.href = '@Url.Action("Index")';
+                        }, 2000);
+                    } else {
+                        document.getElementById('modalMessage').textContent = 'There was an error processing your request.';
+                        modal.show();
+                        setTimeout(() => modal.hide(), 2000);
+                    }
+                })
+                .catch(error => {
+                    const modal = new bootstrap.Modal(document.getElementById('notificationModal'));
+                    document.getElementById('modalMessage').textContent = 'An unexpected error occurred.';
+                    modal.show();
+                    setTimeout(() => modal.hide(), 2000);
+                });
+        });
+
+        //modal dan sonra  sayfayı yenile bir kere
+
+
+        
+       
+    </script>
+}

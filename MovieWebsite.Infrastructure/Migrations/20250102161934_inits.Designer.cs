@@ -12,8 +12,8 @@ using MovieWebsite.Infrastructure.Context;
 namespace MovieWebsite.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241125174649_init")]
-    partial class init
+    [Migration("20250102161934_inits")]
+    partial class inits
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -217,7 +217,7 @@ namespace MovieWebsite.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDate = new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5348),
+                            CreateDate = new DateTime(2025, 1, 2, 19, 19, 34, 456, DateTimeKind.Local).AddTicks(5797),
                             Description = "The leader of a drug cartel busts out of a courthouse and speeds to the Mexican border, where the only thing in his path is a sheriff and his inexperienced staff.",
                             GenreId = 1,
                             ImagePath = "/moviehunter/css/images/movie1.jpg",
@@ -227,7 +227,7 @@ namespace MovieWebsite.Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            CreateDate = new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5350),
+                            CreateDate = new DateTime(2025, 1, 2, 19, 19, 34, 456, DateTimeKind.Local).AddTicks(5799),
                             Description = " Peter Parker is beset with troubles in his failing personal life as he battles a brilliant scientist named Doctor Otto Octavius.",
                             GenreId = 1,
                             ImagePath = "/moviehunter/css/images/movie2.jpg",
@@ -237,7 +237,7 @@ namespace MovieWebsite.Infrastructure.Migrations
                         new
                         {
                             Id = 3,
-                            CreateDate = new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5352),
+                            CreateDate = new DateTime(2025, 1, 2, 19, 19, 34, 456, DateTimeKind.Local).AddTicks(5801),
                             Description = "A strange black entity from another world bonds with Peter Parker and causes inner turmoil as he contends with new villains, temptations, and revenge.",
                             GenreId = 1,
                             ImagePath = "/moviehunter/css/images/movie3.jpg",
@@ -247,7 +247,7 @@ namespace MovieWebsite.Infrastructure.Migrations
                         new
                         {
                             Id = 4,
-                            CreateDate = new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5353),
+                            CreateDate = new DateTime(2025, 1, 2, 19, 19, 34, 456, DateTimeKind.Local).AddTicks(5803),
                             Description = "A dramatization of the July 20, 1944 assassination and political coup plot by desperate renegade German Army officers",
                             GenreId = 3,
                             ImagePath = "/moviehunter/css/images/movie4.jpg",
@@ -257,7 +257,7 @@ namespace MovieWebsite.Infrastructure.Migrations
                         new
                         {
                             Id = 5,
-                            CreateDate = new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5355),
+                            CreateDate = new DateTime(2025, 1, 2, 19, 19, 34, 456, DateTimeKind.Local).AddTicks(5804),
                             Description = " A former Roman General sets out to exact vengeance against the corrupt emperor who murdered his family and sent him",
                             GenreId = 3,
                             ImagePath = "/moviehunter/css/images/movie5.jpg",
@@ -267,7 +267,7 @@ namespace MovieWebsite.Infrastructure.Migrations
                         new
                         {
                             Id = 6,
-                            CreateDate = new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5356),
+                            CreateDate = new DateTime(2025, 1, 2, 19, 19, 34, 456, DateTimeKind.Local).AddTicks(5806),
                             Description = " Set during the Ice Age, a sabertooth tiger, a sloth, and a wooly mammoth find a lost human infant, and they try to return him to his tribe.",
                             GenreId = 2,
                             ImagePath = "/moviehunter/css/images/movie6.jpg",
@@ -277,7 +277,7 @@ namespace MovieWebsite.Infrastructure.Migrations
                         new
                         {
                             Id = 7,
-                            CreateDate = new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5358),
+                            CreateDate = new DateTime(2025, 1, 2, 19, 19, 34, 456, DateTimeKind.Local).AddTicks(5807),
                             Description = "An ancient struggle between two Cyber",
                             GenreId = 6,
                             ImagePath = "/moviehunter/css/images/movie7.jpg",
@@ -287,7 +287,7 @@ namespace MovieWebsite.Infrastructure.Migrations
                         new
                         {
                             Id = 8,
-                            CreateDate = new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5360),
+                            CreateDate = new DateTime(2025, 1, 2, 19, 19, 34, 456, DateTimeKind.Local).AddTicks(5809),
                             Description = " In 1962, the United States government enlists the help of Mutants with superhuman abilities to stop a malicious dictator who is determined to start World War III.",
                             GenreId = 6,
                             ImagePath = "/moviehunter/css/images/movie8.jpg",
@@ -297,7 +297,7 @@ namespace MovieWebsite.Infrastructure.Migrations
                         new
                         {
                             Id = 9,
-                            CreateDate = new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5361),
+                            CreateDate = new DateTime(2025, 1, 2, 19, 19, 34, 456, DateTimeKind.Local).AddTicks(5810),
                             Description = " The Dragon Warrior has to clash against the savage Tai Lung as China's fate hangs in the balance: However, the Dragon Warrior mantle is supposedly mistaken to be bestowed upon an obese panda who is a tyro in martial arts.",
                             GenreId = 2,
                             ImagePath = "/moviehunter/css/images/movie9.jpg",
@@ -307,7 +307,7 @@ namespace MovieWebsite.Infrastructure.Migrations
                         new
                         {
                             Id = 10,
-                            CreateDate = new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5363),
+                            CreateDate = new DateTime(2025, 1, 2, 19, 19, 34, 456, DateTimeKind.Local).AddTicks(5812),
                             Description = " Jerry and Rachel are two strangers thrown together by a mysterious phone call from a woman they have never met. Threatening their lives and family, she pushes Jerry and Rachel into a series of increasingly dangerous situations, using the technology of everyday life to track and control their every move.",
                             GenreId = 1,
                             ImagePath = "/moviehunter/css/images/movie10.jpg",
@@ -317,7 +317,7 @@ namespace MovieWebsite.Infrastructure.Migrations
                         new
                         {
                             Id = 11,
-                            CreateDate = new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5364),
+                            CreateDate = new DateTime(2025, 1, 2, 19, 19, 34, 456, DateTimeKind.Local).AddTicks(5813),
                             Description = "Harvard symbologist Robert Langdon works with a nuclear physicist to solve a murder and prevent a terrorist act against the Vatican during one of the significant events within the church.",
                             GenreId = 2,
                             ImagePath = "/moviehunter/css/images/movie12.jpg",
@@ -327,7 +327,7 @@ namespace MovieWebsite.Infrastructure.Migrations
                         new
                         {
                             Id = 12,
-                            CreateDate = new DateTime(2024, 11, 25, 20, 46, 49, 196, DateTimeKind.Local).AddTicks(5366),
+                            CreateDate = new DateTime(2025, 1, 2, 19, 19, 34, 456, DateTimeKind.Local).AddTicks(5815),
                             Description = "In rural Alabama, two couples find themselves in a fight for survival. Running from a maniac (The Tin Man) bent on killing them, they flee deep into the woods and seek refuge in a house.",
                             GenreId = 3,
                             ImagePath = "/moviehunter/css/images/movie13.jpg",
@@ -417,6 +417,49 @@ namespace MovieWebsite.Infrastructure.Migrations
                             Name = "Sci-Fi",
                             Status = 0
                         });
+                });
+
+            modelBuilder.Entity("MovieWebsite.Domain.Entities.Review", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("FilmId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FilmId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("MovieWebsite.Domain.Entities.User", b =>
@@ -611,6 +654,25 @@ namespace MovieWebsite.Infrastructure.Migrations
                     b.Navigation("Genre");
                 });
 
+            modelBuilder.Entity("MovieWebsite.Domain.Entities.Review", b =>
+                {
+                    b.HasOne("MovieWebsite.Domain.Entities.Film", "Film")
+                        .WithMany("Reviews")
+                        .HasForeignKey("FilmId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MovieWebsite.Domain.Entities.User", "User")
+                        .WithMany("Reviews")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Film");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("MovieWebsite.Domain.Entities.UserFilmLike", b =>
                 {
                     b.HasOne("MovieWebsite.Domain.Entities.Film", "Film")
@@ -632,6 +694,8 @@ namespace MovieWebsite.Infrastructure.Migrations
 
             modelBuilder.Entity("MovieWebsite.Domain.Entities.Film", b =>
                 {
+                    b.Navigation("Reviews");
+
                     b.Navigation("UserFilmLikes");
                 });
 
@@ -642,6 +706,8 @@ namespace MovieWebsite.Infrastructure.Migrations
 
             modelBuilder.Entity("MovieWebsite.Domain.Entities.User", b =>
                 {
+                    b.Navigation("Reviews");
+
                     b.Navigation("UserFilmLikes");
                 });
 #pragma warning restore 612, 618

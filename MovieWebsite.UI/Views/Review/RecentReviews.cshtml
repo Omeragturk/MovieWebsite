@@ -1,0 +1,15 @@
+﻿@model List<ReviewVM>
+
+<h1>Recent Reviews</h1>
+
+<ul class="list-group">
+    @foreach (var review in Model)
+    {
+        <li class="list-group-item">
+            <strong>Film:</strong> @review.Film.Title <br />
+            <strong>User:</strong> @review.User.UserName <br />
+            <strong>Rating:</strong> @review.Rating <br />
+            <strong>Text:</strong> @review.Text
+        </li>
+    }
+</ul>
