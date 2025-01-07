@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MovieWebsite.Application.Models.VMs.ReviewVMs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,10 @@ namespace MovieWebsite.Application.Models.VMs.FilmVMs
         public DateTime CreateDate { get; set; }
         public bool Liked { get; set; }
         public bool Disliked { get; set; }
+        public string UserId { get; set; }
+        public string UserName { get; set; }
+        public string UserImagePath { get; set; }
 
-
+        public List<ReviewVM> Reviews { get; set; }
     }
 }

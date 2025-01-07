@@ -22,7 +22,7 @@
 
         <div class="card">
             <div class="card-body register-card-body">
-                <p class="login-box-msg">Register a new membership</p>
+              
 
                 <form asp-controller="Account" asp-action="AdminRegister" method="post">
                     <div class="input-group mb-3">
@@ -81,7 +81,9 @@
                     </div>
                 </form>
 
-                <a href="#" class="text-center">I already have a membership</a>
+                <div class="text-center">
+                    <a asp-controller="Account" asp-action="Login">Already have a membership? Login here.</a>
+                </div>
             </div>
             <!-- /.form-box -->
         </div><!-- /.card -->

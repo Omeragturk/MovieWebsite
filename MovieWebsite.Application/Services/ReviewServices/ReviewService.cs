@@ -79,13 +79,14 @@ namespace MovieWebsite.Application.Services.ReviewServices
             FilmId = r.FilmId,
             Film = r.Film,
             UserId = r.UserId,
-            User = r.User,
+            User = r.User,            
             CreateDate = r.CreateDate,
             UpdateDate = r.UpdateDate,
             DeleteDate = r.DeleteDate,
             Status = r.Status
         },
-        where: r => r.Status == Status.Active,
+        where: r => r.Status == Status.Active || r.Status == Status.Modified,
+
         include: q => q.Include(r => r.Film).Include(r => r.User)
     );
 
@@ -134,11 +135,27 @@ namespace MovieWebsite.Application.Services.ReviewServices
 
         public async Task<List<ReviewVM>> GetReviewsByFilmId(int filmId)
         {
-            var reviews = await _reviewRepository.GetDefaults(r => r.FilmId == filmId);
-            return _mapper.Map<List<ReviewVM>>(reviews);
+            // Yorumları, ilişkili kullanıcı bilgileriyle birlikte getiriyoruz.
+            var reviews = await _reviewRepository.GetFilteredList(
+                select: r => new ReviewVM
+                {
+                    Id = r.Id,
+                    Rating = r.Rating,
+                    Text = r.Text,
+                    FilmId = r.FilmId,
+                    UserId = r.UserId,
+                    UserName = r.User.UserName,
+                    UserImagePath = r.User.ImagePath,
+                    CreateDate = r.CreateDate,
+                    Status = r.Status
+                },
+                where: r => r.FilmId == filmId,
+                include: r => r.Include(r => r.User) // Kullanıcı bilgilerini dahil ediyoruz.
+            );
 
-
+            return reviews;
         }
+
 
         public async Task<List<ReviewVM>> GetReviewsByRating(int rating)
         {
@@ -177,6 +194,9 @@ namespace MovieWebsite.Application.Services.ReviewServices
             review.Rating = model.Rating;
             review.Text = model.Text;
             review.UpdateDate = DateTime.Now;
+            review.Status = Status.Modified;
+            review.FilmId = model.FilmId;
+            review.UserId = model.UserId;           
             await _reviewRepository.Update(review);
 
 

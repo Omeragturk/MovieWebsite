@@ -7,6 +7,19 @@
 <script src="https://kit.fontawesome.com/8e1b0b6f3d.js" crossorigin="anonymous"></script>
 
 <style>
+    .movie .overlay .rating {
+        margin-top: 10px;
+        font-size: 1em;
+        color: #fff;
+        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .movie .overlay .rating i {
+            margin-right: 5px;
+        }
     .movie {
         position: relative;
         width: 200px;
@@ -87,6 +100,10 @@
                             <img src="@movie.ImagePath" alt="@movie.Title">
                             <div class="overlay">
                                 <span class="name">@movie.Title</span>
+                                <span class="rating">
+                                    <i class="fa-solid fa-star" style="color: gold;"></i>
+                                    @movie.Rating.ToString("0.0") / 5
+                                </span>
                             </div>
                         </div>
                     </div>

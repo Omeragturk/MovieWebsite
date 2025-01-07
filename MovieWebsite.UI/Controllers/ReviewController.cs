@@ -29,7 +29,7 @@ namespace MovieWebsite.UI.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var reviews = await _reviewService.GetAllReviews();
+            var reviews = await _reviewService.GetAllReviews();           
             return View(reviews);
 
         }
@@ -114,24 +114,39 @@ namespace MovieWebsite.UI.Controllers
                 return NotFound();
             }
 
+            // Get the list of films
+            var films = await _filmService.GetAllFilms();
+            ViewBag.Films = new SelectList(films, "Id", "Title");
+
             return View(review);
-
-
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(UpdateReviewDto model)
+        public async Task<IActionResult> Edit(UpdateReviewDto updateReviewDto)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                await _reviewService.Update(model);
-                return RedirectToAction(nameof(Index));
+                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+                foreach (var error in errors)
+                {
+                    Console.WriteLine(error); // Debug or log the errors
+                }
+
+                var films = await _filmService.GetAllFilms();
+                ViewBag.Films = new SelectList(films, "Id", "Title");
+                return View(updateReviewDto);
             }
-            return View(model);
 
 
+            await _reviewService.Update(updateReviewDto);
+
+            // Assuming the update is always successful
+            return RedirectToAction("Index");
         }
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

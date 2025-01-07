@@ -3,24 +3,155 @@
 @{
     ViewData["Title"] = "Film Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var likeClass = Model.Liked ? "active-like" : "inactive-like";
+    var dislikeClass = Model.Disliked ? "active-dislike" : "inactive-dislike";
 }
+<style>
+     /* Arka Plan */
+  
+    .film-card {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+        position: relative;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
 
-<div class="container mt-4">
-    <div class="card shadow-lg">
-        <img class="card-img-top rounded" src="@Model.ImagePath" alt="@Model.Title" />
-        <div class="card-body">
-            <h2 class="card-title text-center text-primary">@Model.Title</h2>
-            <p class="card-text">@Model.Description</p>
+    .film-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
 
-            <div class="d-flex justify-content-between align-items-center mt-4">
-                <div class="d-flex gap-3">
+    .film-info h2 {
+        font-family: 'Playfair Display', serif;
+        color: #ffce45;
+    }
+
+    .genre-badge {
+        background: #ffce45;
+        color: #16213e;
+        font-size: 14px;
+        padding: 5px 10px;
+        border-radius: 20px;
+    }
+
+    .btn.action-btn {
+        border: none;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        font-size: 20px;
+        line-height: 45px;
+        transition: background 0.3s, transform 0.3s;
+    }
+
+    .btn.action-btn.active-like {
+        background: linear-gradient(to right, #4caf50, #8bc34a);
+        color: #fff;
+        transform: scale(1.1);
+    }
+
+    .btn.action-btn.active-dislike {
+        background: linear-gradient(to right, #f44336, #e57373);
+        color: #fff;
+        transform: scale(1.1);
+    }
+
+    .btn.action-btn:hover {
+        transform: scale(1.1);
+    }
+
+    .reviews-container {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 20px;
+    }
+
+    .review-card {
+        background: #fff;
+        border-radius: 10px;
+        color: #16213e;
+        transition: transform 0.3s;
+    }
+
+    .review-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .film-reel {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        animation: reelSpin 2s infinite;
+    }
+
+    
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background-color: rgba(255, 255, 255, 0.5);
+        border-radius: 50%;
+    }
+
+    .film-actions .action-btn {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        font-size: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+        .film-actions .action-btn.active-like {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .film-actions .action-btn.active-dislike {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .film-actions .action-btn:hover {
+            transform: scale(1.1);
+        }
+
+    .gap-3 {
+        gap: 1rem; /* Butonlar arasına boşluk eklemek için */
+    }
+
+
+</style>
+
+<div>
+    <a asp-area="" asp-controller="Review" asp-action="Create" asp-route-filmId="@Model.FilmId" class="btn btn-primary">Add Review</a>
+</div>
+
+
+<div class="container mt-5">
+    <div class="row g-5">
+        <!-- Film Details Section -->
+        <div class="col-lg-5">
+            <div class="film-card shadow-lg position-relative">
+                <img src="@Model.ImagePath" alt="@Model.Title" class="card-img rounded-3">
+                <div class="film-info p-4">
+                    <h2 class="text-white fw-bold">@Model.Title</h2>
+                    <p class="text-muted mb-4">@Model.Description</p>
+                    <span class="badge genre-badge">@Model.GenreName</span>
+                </div>
+                <div class="film-actions d-flex justify-content-center gap-3 p-3">
                     <!-- Like Button -->
                     <form asp-area="Admin" asp-controller="UserFilmLike" asp-action="Like" method="post" class="like-form">
                         <input type="hidden" name="filmId" value="@Model.FilmId" />
                         <button type="submit"
-                                class="btn like-btn shadow-lg d-flex align-items-center rounded-circle @(Model.Liked ? "active-like" : "")"
+                                class="btn action-btn shadow @likeClass"
                                 title="Like">
-                            <i class="fa-solid fa-thumbs-up fa-xl"></i>
+                            <i class="fa-solid fa-thumbs-up"></i>
                         </button>
                     </form>
 
@@ -28,20 +159,62 @@
                     <form asp-area="Admin" asp-controller="UserFilmLike" asp-action="Dislike" method="post" class="dislike-form">
                         <input type="hidden" name="filmId" value="@Model.FilmId" />
                         <button type="submit"
-                                class="btn dislike-btn shadow-lg d-flex align-items-center rounded-circle @(Model.Disliked ? "active-dislike" : "")"
+                                class="btn action-btn shadow @dislikeClass"
                                 title="Dislike">
-                            <i class="fa-solid fa-thumbs-down fa-xl"></i>
+                            <i class="fa-solid fa-thumbs-down"></i>
                         </button>
                     </form>
                 </div>
+            </div>
+        </div>
 
-                <a href="@Url.Action("Index", "Home")" class="btn btn-primary">
-                    <i class="fa-solid fa-arrow-left"></i> Back to List
-                </a>
+        <!-- Reviews Section -->
+        <div class="col-lg-7">
+            <div class="reviews-container">
+                <h3 class="text-center mb-4">User Reviews</h3>
+                <div id="reviewsCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        @for (int i = 0; i < Model.Reviews.Count; i++)
+                        {
+                            <div class="carousel-item @(i == 0 ? "active" : "")">
+                                <div class="review-card p-4 shadow-lg">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <img src="@Model.Reviews[i].UserImagePath" alt="User" class="rounded-circle me-3" style="width: 50px; height: 50px;">
+                                        <div>
+                                            <h5 class="mb-1">@Model.Reviews[i].UserName</h5>
+                                            <small class="text-muted">@Model.Reviews[i].CreateDate.ToString("yyyy-MM-dd")</small>
+                                        </div>
+                                    </div>
+                                    <p class="review-text">@Model.Reviews[i].Text</p>
+                                   
+                                    <div class="d-flex justify-content-center mt-3">
+                                        @for (int j = 1; j <= 5; j++)
+                                        {
+                                            <i class="fa-solid fa-star @(j <= Model.Reviews[i].Rating ? "text-warning" : "text-muted")"></i>
+                                        }
+                                        </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#reviewsCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#reviewsCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<div class="text-center mt-5">
+    <a asp-action="Index" class="btn btn-primary">Back to Home</a>
+    </div>
+
+                                
+
 
 <!-- Loader and Feedback Modal -->
 <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
@@ -72,6 +245,11 @@
             form.addEventListener("submit", function (event) {
                 event.preventDefault();
 
+                // Diğer butonları resetle
+                document.querySelectorAll(".action-btn").forEach(button => {
+                    button.classList.remove("active-like", "inactive-like", "active-dislike", "inactive-dislike");
+                });
+
                 const formData = new FormData(this);
                 const actionUrl = this.action;
                 const isLike = this.classList.contains("like-form");
@@ -82,7 +260,14 @@
                 const feedbackMessage = document.getElementById("feedbackMessage");
                 const feedbackIcon = document.getElementById("feedbackIcon");
 
-                // Show loader and modal
+                // Seçili butonun stilini ekle
+                if (isLike) {
+                    this.querySelector(".action-btn").classList.add("active-like");
+                } else {
+                    this.querySelector(".action-btn").classList.add("active-dislike");
+                }
+
+                // Loader'ı göster ve modalı aç
                 loader.classList.remove("d-none");
                 feedbackMessageContainer.classList.add("d-none");
                 feedbackModal.show();
@@ -100,7 +285,6 @@
                     })
                     .then(() => {
                         setTimeout(() => {
-                            
                             loader.classList.add("d-none");
                             feedbackMessageContainer.classList.remove("d-none");
 
@@ -119,5 +303,6 @@
                     });
             });
         });
+
     </script>
 }

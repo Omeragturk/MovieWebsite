@@ -17,6 +17,8 @@ namespace MovieWebsite.Application.Models.VMs.ReviewVMs
         public Film Film { get; set; }
         public string UserId { get; set; }
         public User User { get; set; }
+        public string UserName { get; set; }
+        public string? UserImagePath { get; set; }
 
 
         public DateTime CreateDate { get; set; }

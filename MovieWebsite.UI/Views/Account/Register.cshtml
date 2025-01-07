@@ -4,150 +4,158 @@
 @model MovieWebsite.Application.Models.DTOs.UserDtos.RegisterDto
 
 
-    <link rel="stylesheet" href="~/css/register.css">
-    <style>
-        body {
+    
+<style>
+    body {
         background-image: url('https://c4.wallpaperflare.com/wallpaper/862/449/162/jack-reacher-star-wars-interstellar-movie-john-wick-wallpaper-preview.jpg');
-            background-size: cover;
-            background-position: center;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-        }
+        background-size: cover;
+        background-position: center;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+    }
 
-            body::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.6);
-                z-index: -1;
-            }
-
-        .register-box {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            border-radius: 20px;
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 450px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease-in-out;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: -1;
         }
 
-            .register-box:hover {
-                box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5);
-            }
+    .register-box {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 40px;
+        border-radius: 20px;
+        width: 100%;
+        max-width: 500px; /* Increased max-width for better spacing */
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease-in-out;
+    }
 
-        .register-logo img {
-            width: 150px;
-            display: block;
-            margin: 0 auto 20px auto;
+        .register-box:hover {
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5);
         }
 
-        .login-box-msg {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 1.5em;
+    .register-logo img {
+        width: 150px;
+        display: block;
+        margin: 0 auto 20px auto;
+    }
+
+    .login-box-msg {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #f0f0f0;
+    }
+
+    .input-group {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .form-control {
+        border-radius: 25px;
+        border: 1px solid #ddd;
+        padding: 15px;
+        font-size: 1.2em; /* Increased font size for better readability */
+        width: 100%; /* Full width of the container */
+        max-width: 400px; /* Larger width for input fields */
+        background-color: rgba(255, 255, 255, 0.8);
+        color: #333;
+        transition: all 0.3s ease;
+    }
+
+        .form-control:focus {
+            background-color: #fff;
+            border-color: #4e73df;
+            box-shadow: 0 0 10px rgba(78, 115, 223, 0.5);
+        }
+
+    .btn-primary {
+        background-color: #4e73df;
+        border-radius: 25px;
+        font-weight: bold;
+        padding: 15px;
+        font-size: 1.2em;
+        transition: all 0.3s ease;
+        width: 100%; /* Butonu tam genişlikte yapar */
+        max-width: 250px; /* Butonun maksimum genişliğini sınırlandırır */
+        margin: 0 auto; /* Ortalamayı sağlar */
+        display: block; /* Blok öğesi olarak ayarlar */
+    }
+
+        .btn-primary:hover {
+            background-color: #375ab0;
+        }
+
+    .text-center {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+        .text-center a {
+            color: #fff;
+            text-decoration: none;
             font-weight: bold;
-            color: #f0f0f0;
         }
 
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        .form-control {
-            border-radius: 25px;
-            border: 1px solid #ddd;
-            padding: 15px;
-            font-size: 1.1em;
-            background-color: rgba(255, 255, 255, 0.8);
-            color: #333;
-            transition: all 0.3s ease;
-        }
-
-            .form-control:focus {
-                background-color: #fff;
-                border-color: #4e73df;
-                box-shadow: 0 0 10px rgba(78, 115, 223, 0.5);
+            .text-center a:hover {
+                color: #4e73df;
             }
-
-        .btn-primary {
-            background-color: #4e73df;
-            border-radius: 25px;
-            font-weight: bold;
-            padding: 15px;
-            width: 100%;
-            font-size: 1.2em;
-            transition: all 0.3s ease;
-        }
-
-            .btn-primary:hover {
-                background-color: #375ab0;
-            }
-
-        .text-center {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-            .text-center a {
-                color: #fff;
-                text-decoration: none;
-                font-weight: bold;
-            }
-
-                .text-center a:hover {
-                    color: #4e73df;
-                }
-    </style>
+</style>
 
 
-    <div class="register-box">
-        <div class="register-logo">
-            <img src="/moviehunter/css/images/logo.gif" alt="Logo">
-        </div>
+<div class="register-box">
+    <div class="register-logo">
+        <img src="/moviehunter/css/images/logo.gif" alt="Logo">
+    </div>
 
-        <div class="card">
-            <div class="card-body register-card-body">
-                <p class="login-box-msg">Register a new membership</p>
+    <div class="card">
+        <div class="card-body register-card-body">
+            <p class="login-box-msg">Register a new membership</p>
 
-                <form asp-controller="Account" asp-action="Register" method="post">
-                    <div class="input-group mb-3">
-                        <input asp-for="FirstName" type="text" class="form-control" placeholder="First name" required>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input asp-for="LastName" type="text" class="form-control" placeholder="Last name" required>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input asp-for="UserName" type="text" class="form-control" placeholder="Username" required>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input asp-for="Email" type="email" class="form-control" placeholder="Email" required>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input asp-for="Password" type="password" class="form-control" placeholder="Password" required>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirm Password" required>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary btn-block">Register</button>
-                        </div>
-                    </div>
-                </form>
-
-                <div class="text-center">
-                    <a asp-controller="Account" asp-action="Login">Already have a membership? Login here.</a>
+            <form asp-controller="Account" asp-action="Register" method="post">
+                <div class="input-group">
+                    <input asp-for="FirstName" type="text" class="form-control" placeholder="First name" required>
                 </div>
+                <div class="input-group">
+                    <input asp-for="LastName" type="text" class="form-control" placeholder="Last name" required>
+                </div>
+                <div class="input-group">
+                    <input asp-for="UserName" type="text" class="form-control" placeholder="Username" required>
+                </div>
+                <div class="input-group">
+                    <input asp-for="Email" type="email" class="form-control" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <input asp-for="Password" type="password" class="form-control" placeholder="Password" required>
+                </div>
+                <div class="input-group">
+                    <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirm Password" required>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-6 text-center">
+                        <button type="submit" class="btn btn-primary btn-block">Register</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="text-center">
+                <a asp-controller="Account" asp-action="Login">Already have a membership? Login here.</a>
             </div>
         </div>
     </div>
+</div>
+
 

@@ -20,8 +20,6 @@ namespace MovieWebsite.Application.Models.VMs.FilmVMs
         public IFormFile? UpLoadPath { get; set; }
         public string GenreName { get; set; }
         public int GenreId { get; set; }
-        
-
-
+        public double Rating { get; set; }
     }
 }
