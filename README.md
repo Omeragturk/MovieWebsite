@@ -43,7 +43,4 @@ Bu proje, kullanıcıların filmleri görüntüleyebildiği, yorum yapabildiği,
 - Visual Studio 2022 veya Visual Studio Code
 - Web tarayıcısı
 
-### Adımlar
-1. **Proje Kaynak Kodunu Klonlayın:**
-   ```bash
-   git clone https://github.com/kullaniciAdi/projeAdi.git
+
