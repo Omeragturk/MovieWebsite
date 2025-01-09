@@ -38,7 +38,7 @@ namespace MovieWebsite.UI.Controllers
                 films = films.Where(x => x.GenreId == genreId).ToList();
             }
 
-            // Her film için rating bilgisini al
+            
             var filmVMs = new List<FilmVM>();
             foreach (var film in films)
             {

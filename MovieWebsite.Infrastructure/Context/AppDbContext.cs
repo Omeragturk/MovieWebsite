@@ -184,7 +184,7 @@ namespace MovieWebsite.Infrastructure.Context
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=DESKTOP-JI3UVS4;Database=FilmRecomendedApp;Uid=sa;Pwd=123");
+            optionsBuilder.UseSqlServer("");
 
         }
 

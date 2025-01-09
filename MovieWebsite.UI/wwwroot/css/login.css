@@ -103,3 +103,35 @@ body {
         transform: translateY(0);
     }
 }
+
+.btn-back {
+    display: inline-block;
+    width: 100%;
+    padding: 12px 20px;
+    margin-top: 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+    text-decoration: none;
+    background: linear-gradient(45deg, #ff6f61, #ff9068); /* Gradient background */
+    border: none;
+    border-radius: 30px; /* Rounded button */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+    .btn-back:hover {
+        background: linear-gradient(45deg, #ff9068, #ff6f61); /* Gradient swap on hover */
+        transform: translateY(-3px); /* Lift effect */
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5); /* Deepened shadow */
+    }
+
+    .btn-back i {
+        margin-right: 8px; /* Space between icon and text */
+    }
+
+    .btn-back:active {
+        transform: translateY(0); /* Reset lift effect on click */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Reset shadow */
+    }
