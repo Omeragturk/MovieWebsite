@@ -184,7 +184,7 @@ namespace MovieWebsite.Infrastructure.Context
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server="");
+            optionsBuilder.UseSqlServer("Server=");
 
         }
 
